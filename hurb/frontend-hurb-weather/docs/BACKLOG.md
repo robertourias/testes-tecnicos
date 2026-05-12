@@ -53,30 +53,30 @@
 
 ---
 
-## ETAPA 2 — Docker
+## ETAPA 2 — Docker ✅
 
-### 2.1 — Dockerfile multi-stage
+### 2.1 — Dockerfile multi-stage ✅
 
-- [ ] Criar `Dockerfile` com stages: `base`, `development`, `builder`, `production`
-- [ ] Stage `development`: `npm install` + `npm run dev` na porta 3000
-- [ ] Stage `production`: `npm run build` + `output: standalone` + `node server.js`
+- [x] Criar `Dockerfile` com stages: `base`, `development`, `builder`, `production`
+- [x] Stage `development`: `npm install` + `npm run dev` na porta 3000
+- [x] Stage `production`: `npm run build` + `output: standalone` + `node server.js`
 
-### 2.2 — docker-compose.yml
+### 2.2 — docker-compose.yml ✅
 
-- [ ] Criar `docker-compose.yml` com perfil `dev` e perfil `prod`
-- [ ] Perfil `dev`: monta volumes para hot reload
-- [ ] Perfil `prod`: build otimizado sem volumes
+- [x] Criar `docker-compose.yml` com perfil `dev` e perfil `prod`
+- [x] Perfil `dev`: monta volumes para hot reload
+- [x] Perfil `prod`: build otimizado sem volumes
 
-### 2.3 — .dockerignore e next.config.ts
+### 2.3 — .dockerignore e next.config.ts ✅
 
-- [ ] Criar `.dockerignore` excluindo `node_modules`, `.next`, `.git`, `.env.local`, `coverage`
-- [ ] Configurar `next.config.ts` com `output: 'standalone'` e `images.remotePatterns` para Bing
+- [x] Criar `.dockerignore` excluindo `node_modules`, `.next`, `.git`, `.env.local`, `coverage`
+- [x] Configurar `next.config.ts` com `output: 'standalone'` e `images.remotePatterns` para Bing
 
-### 2.4 — Validação Docker
+### 2.4 — Validação Docker ✅
 
-- [ ] Testar `docker compose --profile dev up` do zero
-- [ ] Confirmar acesso em `http://localhost:3000`
-- [ ] Testar `docker compose --profile prod up --build`
+- [x] Testar `docker compose --profile dev up` do zero
+- [x] Confirmar acesso em `http://localhost:3000`
+- [x] Testar `docker compose --profile prod up --build`
 
 ---
 

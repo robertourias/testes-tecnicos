@@ -11,9 +11,77 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### Em desenvolvimento
 
-- ETAPA 2 — Docker (multi-stage build para development e production)
 - ETAPA 3 — Tipos TypeScript (Weather, Geocode, UI)
 - ETAPA 4 — Utilitários (funções puras para temperatura, gradiente, ícones, data)
+
+---
+
+## [0.2.0] - 2026-05-11
+
+### ✨ Adicionado
+
+#### Docker (ETAPA 2)
+
+**Dockerfile Multi-Stage**
+
+- `Dockerfile` com 4 stages otimizados:
+  - `base` — Camada compartilhada com Node.js 20 Alpine
+  - `development` — Ambiente de desenvolvimento com hot reload
+  - `builder` — Build otimizado da aplicação
+  - `production` — Runtime mínimo com usuário não-root
+
+**Docker Compose**
+
+- `docker-compose.yml` com dois perfis:
+  - `dev` — Desenvolvimento com volumes para hot reload
+  - `prod` — Produção com build standalone
+- Containers nomeados: `hurb-weather-dev` e `hurb-weather-prod`
+- Carregamento automático de `.env.local`
+- Restart policy para produção (`unless-stopped`)
+
+**Otimizações**
+
+- `.dockerignore` completo para reduzir contexto de build
+- Output standalone do Next.js habilitado
+- Usuário não-root (`nextjs:nodejs` UID 1001) para segurança
+- Volumes isolados para `node_modules` e `.next` no modo dev
+
+**Documentação**
+
+- `docs/DOCKER.md` com guia completo:
+  - Comandos para dev e prod
+  - Arquitetura multi-stage explicada
+  - Troubleshooting comum
+  - Exemplos de CI/CD
+  - Comandos úteis de Docker
+
+### 🔧 Configurado
+
+**next.config.ts**
+
+- `output: 'standalone'` para produção otimizada
+- `images.remotePatterns` configurado para Bing (`www.bing.com/th**`)
+
+### 📊 Métricas
+
+**Tamanho das Imagens**
+
+- Desenvolvimento: **959 MB**
+- Produção: **187 MB** (~80% menor)
+
+**Performance de Inicialização**
+
+- Desenvolvimento: ~400ms (com compilação)
+- Produção: <1ms (pré-compilado)
+
+### ✅ Validado
+
+- ✅ Build da imagem de desenvolvimento bem-sucedido
+- ✅ Build da imagem de produção bem-sucedido
+- ✅ Container de desenvolvimento acessível em http://localhost:3000
+- ✅ Container de produção acessível em http://localhost:3000
+- ✅ Hot reload funcionando no modo dev
+- ✅ Standalone output gerando corretamente
 
 ---
 

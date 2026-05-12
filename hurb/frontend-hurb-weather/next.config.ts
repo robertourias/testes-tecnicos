@@ -1,7 +1,19 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Habilitar output standalone para Docker production
+  output: 'standalone',
+
+  // Configurar domínios permitidos para next/image
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.bing.com',
+        pathname: '/th**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
