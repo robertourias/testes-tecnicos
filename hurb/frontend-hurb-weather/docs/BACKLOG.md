@@ -5,51 +5,51 @@
 
 ---
 
-## ETAPA 1 — Setup do Projeto
+## ETAPA 1 — Setup do Projeto ✅
 
-### 1.1 — Inicializar Next.js
+### 1.1 — Inicializar Next.js ✅
 
-- [ ] Rodar `npx create-next-app@latest` com TypeScript, App Router, CSS Modules, ESLint
-- [ ] Remover boilerplate padrão (página inicial, estilos globais de exemplo)
-- [ ] Confirmar que `npm run dev` sobe sem erros
+- [x] Rodar `npx create-next-app@latest` com TypeScript, App Router, CSS Modules, ESLint
+- [x] Remover boilerplate padrão (página inicial, estilos globais de exemplo)
+- [x] Confirmar que `npm run dev` sobe sem erros
 
-### 1.2 — Estrutura de pastas
+### 1.2 — Estrutura de pastas ✅
 
-- [ ] Criar pastas: `src/components`, `src/hooks`, `src/services`, `src/utils`, `src/types`, `src/styles`
-- [ ] Criar pasta `public/icons` para os Meteocons
-- [ ] Criar `src/styles/tokens.css` com variáveis CSS (cores, tipografia, espaçamento)
+- [x] Criar pastas: `src/components`, `src/hooks`, `src/services`, `src/utils`, `src/types`, `src/styles`
+- [x] Criar pasta `public/icons` para os Meteocons
+- [x] Criar `src/styles/tokens.css` com variáveis CSS (cores, tipografia, espaçamento)
 
-### 1.3 — Variáveis de ambiente
+### 1.3 — Variáveis de ambiente ✅
 
-- [ ] Criar `.env.example` com `NEXT_PUBLIC_OPENWEATHER_APPID` e `NEXT_PUBLIC_OPENCAGE_API_KEY`
-- [ ] Criar `.env.local` com os valores reais
-- [ ] Adicionar `.env.local` ao `.gitignore`
+- [x] Criar `.env.example` com `NEXT_PUBLIC_OPENWEATHER_APPID` e `NEXT_PUBLIC_OPENCAGE_API_KEY`
+- [x] Criar `.env.local` com os valores reais
+- [x] Adicionar `.env.local` ao `.gitignore`
 
-### 1.4 — ESLint e Prettier
+### 1.4 — ESLint e Prettier ✅
 
-- [ ] Instalar e configurar Prettier
-- [ ] Criar `.prettierrc` e `.eslintrc` com regras do projeto
-- [ ] Adicionar scripts `lint` e `format` ao `package.json`
+- [x] Instalar e configurar Prettier
+- [x] Criar `.prettierrc` e `.eslintrc` com regras do projeto
+- [x] Adicionar scripts `lint` e `format` ao `package.json`
 
-### 1.5 — Configurar Jest + Testing Library
+### 1.5 — Configurar Jest + Testing Library ✅
 
-- [ ] Instalar `jest`, `@testing-library/react`, `@testing-library/jest-dom`, `jest-environment-jsdom`
-- [ ] Criar `jest.config.ts` e `jest.setup.ts`
-- [ ] Adicionar script `test` e `test:coverage` ao `package.json`
-- [ ] Confirmar que `npm run test` executa sem erros
+- [x] Instalar `jest`, `@testing-library/react`, `@testing-library/jest-dom`, `jest-environment-jsdom`
+- [x] Criar `jest.config.ts` e `jest.setup.ts`
+- [x] Adicionar script `test` e `test:coverage` ao `package.json`
+- [x] Confirmar que `npm run test` executa sem erros
 
-### 1.6 — Configurar MSW
+### 1.6 — Configurar MSW ✅
 
-- [ ] Instalar `msw`
-- [ ] Criar `src/__mocks__/server.ts` e `src/__mocks__/handlers.ts` (vazio por enquanto)
-- [ ] Integrar `server` ao `jest.setup.ts`
+- [x] Instalar `msw`
+- [x] Criar `src/__mocks__/server.ts` e `src/__mocks__/handlers.ts` (vazio por enquanto)
+- [x] Integrar `server` ao `jest.setup.ts`
 
-### 1.7 — Configurar Playwright
+### 1.7 — Configurar Playwright ✅
 
-- [ ] Instalar `@playwright/test` e rodar `npx playwright install`
-- [ ] Criar `playwright.config.ts`
-- [ ] Adicionar script `test:e2e` ao `package.json`
-- [ ] Criar teste E2E mínimo (`tests/e2e/smoke.spec.ts`) para validar setup
+- [x] Instalar `@playwright/test` e rodar `npx playwright install`
+- [x] Criar `playwright.config.ts`
+- [x] Adicionar script `test:e2e` ao `package.json`
+- [x] Criar teste E2E mínimo (`tests/e2e/smoke.spec.ts`) para validar setup
 
 ---
 
