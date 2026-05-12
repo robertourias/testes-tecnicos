@@ -39,7 +39,7 @@
 | 6     | ✅     | v0.6.0 |
 | 7     | ✅     | v0.7.0 |
 | 8     | ✅     | v0.8.0 |
-| 9     | ⏳     | -      |
+| 9     | ✅     | v0.9.0 |
 | 10    | ⏳     | -      |
 | 11    | ⏳     | -      |
 | 12    | ⏳     | -      |
@@ -395,21 +395,21 @@
 
 ---
 
-## ETAPA 9 — Página Principal
+## ETAPA 9 — Página Principal ✅
 
-### 9.1 — Montar layout da página
+### 9.1 — Montar layout da página ✅
 
-- [ ] Atualizar `src/app/page.tsx` usando `useWeather` e `useTemperatureUnit`
-- [ ] Renderizar: `BackgroundImage`, `LocationInput`, `WeatherGrid` ou `LoadingState` ou `ErrorMessage`
-- [ ] Passar tema do gradiente baseado na temperatura do dia atual
+- [x] Atualizar `src/app/page.tsx` usando `useWeather` e `useTemperatureUnit`
+- [x] Renderizar: `BackgroundImage`, `LocationInput`, `WeatherGrid` ou `LoadingState` ou `ErrorMessage`
+- [x] Passar tema do gradiente baseado na temperatura do dia atual
 
-### 9.2 — Teste de integração da página
+### 9.2 — Teste de integração da página ✅
 
-- [ ] Criar `src/app/__tests__/page.test.tsx`
-- [ ] Usar MSW + mock de geolocalização
-- [ ] Testar: fluxo completo do happy path (geoloc → previsão renderizada)
-- [ ] Testar: estado de loading exibido enquanto aguarda APIs
-- [ ] Testar: exibe `ErrorMessage` em caso de falha na geolocalização
+- [x] Criar `src/app/__tests__/page.test.tsx`
+- [x] Mock dos hooks useWeather e useTemperatureUnit via jest.mock
+- [x] Testar: fluxo completo do happy path (previsão renderizada com 3 cards)
+- [x] Testar: estado de loading exibido enquanto aguarda APIs
+- [x] Testar: exibe `ErrorMessage` em caso de falha na geolocalização
 
 ---
 

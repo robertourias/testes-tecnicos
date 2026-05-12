@@ -11,12 +11,53 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### Em desenvolvimento
 
-- ETAPA 9 — Página Principal
+- ETAPA 10 — Ícones Meteocons
+- ETAPA 11 — Responsividade e Polimento
+- ETAPA 12 — Testes E2E
+- ETAPA 13 — Documentação Final
 - ETAPA 9 — Página Principal
 - ETAPA 10 — Ícones Meteocons
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
+
+---
+
+## [0.9.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Página Principal (ETAPA 9)
+
+- `src/app/page.tsx` — página principal com `'use client'`; orquestra `useWeather` + `useTemperatureUnit`; computa `GradientTheme` via `getGradientTheme(forecast[0]?.temp)`
+- `src/app/page.module.css` — layout flexbox centralizado; header com input e label de localidade; section para conteúdo; breakpoints mobile/desktop
+- `src/app/__tests__/page.test.tsx` — 11 testes de integração via mock dos hooks
+
+**Lógica de renderização condicional:**
+
+- `loading=true` → `<LoadingState />`
+- `!loading && error && !location` → `<ErrorMessage />` (erro de geolocalização)
+- `!loading && !error && forecast.length > 0` → `<WeatherGrid />`
+- Erro de busca (location existe) → exibido no `LocationInput` via `error` prop
+
+**Testes (11 novos — total: 125)**
+
+- happy path: 3 cards renderizados, nome da localidade, input com valor
+- loading: LoadingState exibido, sem cards
+- erro de geolocalização (sem location): ErrorMessage exibido, sem cards
+- busca de nova cidade: chama setLocation
+- toggle de unidade: chama toggleUnit, exibe °F
+- gradiente: overlay com classe `warm` para 28°C
+
+### 📝 Notas Técnicas
+
+- `error` só é passado ao `LocationInput` quando `location` já existe (erro de busca). Para erros de geolocalização (sem location), apenas `ErrorMessage` é exibido — evita dois `role="alert"` simultâneos.
+- Testes da página usam `jest.mock` nos hooks (não MSW) pela mesma razão dos testes de `useWeather`.
+
+### 📊 Métricas
+
+- 11 novos testes de integração da página
+- Total da suíte: 125 testes em 16 suítes (0 falhas)
 
 ---
 
