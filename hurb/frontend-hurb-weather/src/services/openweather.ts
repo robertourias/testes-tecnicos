@@ -60,7 +60,11 @@ function extractThreeDayForecast(data: OpenWeatherResponse): WeatherDay[] {
 
   for (const item of data.list) {
     const itemDate = new Date(item.dt * 1000);
-    const dayKey = itemDate.toISOString().split('T')[0]; // YYYY-MM-DD
+    // Usar componentes locais para evitar shift de timezone ao parsear depois
+    const y = itemDate.getFullYear();
+    const m = String(itemDate.getMonth() + 1).padStart(2, '0');
+    const d = String(itemDate.getDate()).padStart(2, '0');
+    const dayKey = `${y}-${m}-${d} 12:00:00`;
 
     if (!itemsByDay.has(dayKey)) {
       itemsByDay.set(dayKey, []);

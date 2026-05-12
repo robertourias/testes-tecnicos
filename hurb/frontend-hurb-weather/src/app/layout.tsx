@@ -20,7 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <h1 data-testid="app-title" style={{ display: 'none' }}>
+          HURB Weather
+        </h1>
+        {children}
+      </body>
     </html>
   );
 }

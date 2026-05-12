@@ -42,7 +42,7 @@
 | 9     | ✅     | v0.9.0 |
 | 10    | ✅     | v0.10.0 |
 | 11    | ✅     | v0.11.0 |
-| 12    | ⏳     | -      |
+| 12    | ✅     | v0.12.0 |
 | 13    | ⏳     | -      |
 
 **Legenda:**
@@ -456,31 +456,33 @@
 
 ---
 
-## ETAPA 12 — Testes E2E
+## ETAPA 12 — Testes E2E ✅
 
-### 12.1 — Happy path
+### 12.1 — Happy path ✅
 
-- [ ] Criar `tests/e2e/home.spec.ts`
-- [ ] Mock de geolocalização para Rio de Janeiro
-- [ ] Verificar: 3 cards renderizados com dados reais
+- [x] Criar `tests/e2e/home.spec.ts` com 7 testes
+- [x] Mock de geolocalização para Rio de Janeiro via `page.context().setGeolocation()`
+- [x] Mock de APIs via `page.route()` (OpenWeather, OpenCage, Bing)
+- [x] Verificar: 3 cards renderizados, localidade correta, input com valor, temperaturas em °C, labels de data distintos
 
-### 12.2 — Troca de localidade
+### 12.2 — Troca de localidade ✅
 
-- [ ] Criar `tests/e2e/location.spec.ts`
-- [ ] Digitar nova cidade no input → Enter
-- [ ] Verificar: cards atualizam com nova localidade
+- [x] Criar `tests/e2e/location.spec.ts` com 3 testes
+- [x] Digitar nova cidade no input → Enter → cards recarregados
+- [x] Verificar label da localidade, input value, contagem de cards
 
-### 12.3 — Toggle de temperatura
+### 12.3 — Toggle de temperatura ✅
 
-- [ ] Criar `tests/e2e/temperature.spec.ts`
-- [ ] Clicar em temperatura → verificar mudança para Fahrenheit
-- [ ] Clicar novamente → verificar retorno para Celsius
+- [x] Criar `tests/e2e/temperature.spec.ts` com 5 testes
+- [x] Clicar em temperatura → verificar mudança para °F
+- [x] Clicar novamente → verificar retorno para °C
+- [x] Verificar toggle afeta todos os 3 cards, conversão 25°C → 77°F
 
-### 12.4 — Responsividade E2E
+### 12.4 — Responsividade E2E ✅
 
-- [ ] Criar `tests/e2e/responsive.spec.ts`
-- [ ] Testar viewport 375px: layout em coluna
-- [ ] Testar viewport 1280px: layout em linha (3 colunas)
+- [x] Criar `tests/e2e/responsive.spec.ts` com 5 testes
+- [x] Mobile 375px: cards empilhados, largura ≥ 280px, input sem overflow, toque ≥ 44px
+- [x] Desktop 1280px: cards lado a lado (x crescente), larguras similares
 
 ---
 

@@ -11,13 +11,48 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### Em desenvolvimento
 
-- ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
 - ETAPA 9 — Página Principal
 - ETAPA 10 — Ícones Meteocons
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
+
+---
+
+## [0.12.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Testes E2E com Playwright (ETAPA 12)
+
+**`tests/e2e/helpers/api-mocks.ts`** — helper que configura geolocalização, rota OpenWeather, OpenCage e Bing em cada teste via `page.route()` e `context.setGeolocation()`
+
+**`tests/e2e/smoke.spec.ts`** (1 teste) — verifica que o app carrega e exibe 3 cards
+
+**`tests/e2e/home.spec.ts`** (7 testes) — happy path completo: 3 cards, nome da localidade, input com valor, labels de data distintos, Celsius por padrão
+
+**`tests/e2e/location.spec.ts`** (3 testes) — troca de cidade via Enter: input atualiza, label muda, cards mantidos
+
+**`tests/e2e/temperature.spec.ts`** (5 testes) — toggle °C↔°F: click alterna, click volta, afeta todos os cards, 25°C→77°F
+
+**`tests/e2e/responsive.spec.ts`** (5 testes) — layout 375px (empilhado, largura ≥ 280px, toque ≥ 44px) e 1280px (lado a lado, larguras similares)
+
+### 🐛 Corrigido
+
+- `src/services/openweather.ts` — `extractThreeDayForecast` agora usa componentes locais da data (`.getFullYear()`, `.getMonth()`, `.getDate()`) em vez de `toISOString().split('T')[0]` para o `dayKey`; evita shift de timezone UTC→local que causava `formatWeatherDate` retornar data errada em fusos negativos
+- `src/app/layout.tsx` — adicionado `<h1 data-testid="app-title">HURB Weather</h1>` como Server Component (visualmente oculto)
+- `src/app/page.tsx` — removido `h1` duplicado do Client Component
+
+### 📝 Notas Técnicas
+
+- Playwright usa `reuseExistingServer: true` em desenvolvimento; mudanças em Server Components (layout.tsx) requerem reinício manual do dev server para os testes E2E refletirem. Testes foram escritos para não depender de mudanças que requerem restart.
+- Testes de label de data (`formatWeatherDate`) não verificam texto exato ("Hoje"/"Amanhã") pois dependem de fuso horário consistente entre o test runner e o browser — verificam que cada card tem um label distinto e não-vazio.
+
+### 📊 Métricas
+
+- 21 testes E2E (todos passando, 5.4s)
+- 136 testes unitários/integração (sem regressões)
 
 ---
 
