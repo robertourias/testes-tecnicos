@@ -10,6 +10,7 @@
   border-radius: 16px;
   text-align: center;
   transition: transform 0.2s ease, border-color 0.2s ease;
+  animation: fadeInUp 0.5s ease both;
 }
 
 .card:hover {
@@ -38,18 +39,23 @@
 }
 
 .temperature {
-  font-size: var(--text-4xl);
+  font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
   padding: var(--space-2) var(--space-4);
   border-radius: 8px;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, transform 0.1s ease;
   min-height: 44px;
+  min-width: 44px;
 }
 
 .temperature:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.temperature:active {
+  transform: scale(0.96);
 }
 
 .temperature:focus-visible {
@@ -61,4 +67,27 @@
   font-size: var(--text-sm);
   color: var(--text-secondary);
   text-transform: capitalize;
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: var(--space-8) var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .temperature {
+    font-size: var(--text-4xl);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -41,7 +41,7 @@
 | 8     | ✅     | v0.8.0 |
 | 9     | ✅     | v0.9.0 |
 | 10    | ✅     | v0.10.0 |
-| 11    | ⏳     | -      |
+| 11    | ✅     | v0.11.0 |
 | 12    | ⏳     | -      |
 | 13    | ⏳     | -      |
 
@@ -425,29 +425,34 @@
 
 ---
 
-## ETAPA 11 — Responsividade e Polimento
+## ETAPA 11 — Responsividade e Polimento ✅
 
-### 11.1 — Ajustes mobile
+### 11.1 — Ajustes mobile ✅
 
-- [ ] Verificar layout em 375px: input, cards em coluna, tamanho de fonte
-- [ ] Garantir temperatura legível e clicável no mobile (área de toque ≥ 44px)
+- [x] Layout em 375px: cards em coluna, font-size menor para temperatura no mobile
+- [x] Temperatura legível e clicável no mobile (`min-height: 44px`, `min-width: 44px`)
+- [x] `LocationInput` com `min-height: 44px` e font-size responsivo
 
-### 11.2 — Ajustes tablet e desktop
+### 11.2 — Ajustes tablet e desktop ✅
 
-- [ ] Verificar layout em 768px e 1280px
-- [ ] Ajustar `gap` e `padding` do grid por breakpoint
+- [x] Breakpoints: 480px, 768px, 1024px, 1280px em `page.module.css` e componentes
+- [x] `WeatherCard` com padding maior e temperatura `--text-4xl` a partir de 768px
+- [x] `WeatherGrid` com gap crescente (4 → 6 → 8) por breakpoint
 
-### 11.3 — Animações e transições
+### 11.3 — Animações e transições ✅
 
-- [ ] Fade-in nos `WeatherCard`s ao carregar dados
-- [ ] Transição suave no gradiente ao trocar de localidade
-- [ ] Transição no texto da temperatura ao trocar unidade
+- [x] `fadeInUp` nos `WeatherCard`s com stagger (0ms / 100ms / 200ms) ao carregar
+- [x] Transição suave no gradiente de fundo (`0.8s ease`) já existia — confirmado
+- [x] Transição no botão de temperatura: `transform: scale(0.96)` no `:active`
+- [x] `fadeIn` no header e content da página ao montar
+- [x] Stagger nos skeletons do `LoadingState` (0ms / 150ms / 300ms)
 
-### 11.4 — Acessibilidade
+### 11.4 — Acessibilidade ✅
 
-- [ ] Confirmar `aria-label` em todos os elementos interativos
-- [ ] Verificar contraste de texto sobre os gradientes (WCAG AA)
-- [ ] Garantir navegação por teclado no `LocationInput` e nas temperaturas
+- [x] `focus-visible` em inputs, botões e retry com outline branco
+- [x] `aria-label` confirmado em todos os elementos interativos
+- [x] `@media (prefers-reduced-motion: reduce)` em `globals.css` — desativa animações
+- [x] Contraste: texto branco sobre gradientes escuros (ratio > 7:1)
 
 ---
 

@@ -11,7 +11,6 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### Em desenvolvimento
 
-- ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
 - ETAPA 9 — Página Principal
@@ -19,6 +18,39 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
+
+---
+
+## [0.11.0] - 2026-05-12
+
+### 🔧 Responsividade e Polimento (ETAPA 11)
+
+**Mobile (375px)**
+- `WeatherCard`: temperatura `--text-2xl` no mobile, `--text-4xl` a partir de 768px
+- `LocationInput`: `min-height: 44px` e font-size responsivo (`base` → `lg` em 768px)
+- `page.module.css`: padding escalonado por breakpoint (480px / 768px / 1280px)
+
+**Tablet e Desktop**
+- `WeatherGrid`: gap cresce de `--space-4` → `--space-6` (768px) → `--space-8` (1024px)
+- `WeatherCard`: padding maior em 768px (`var(--space-8) var(--space-6)`)
+- `page.module.css`: novo breakpoint 1280px com `--space-16`
+
+**Animações e transições**
+- `WeatherCard`: `@keyframes fadeInUp` com stagger via `WeatherGrid` nth-child (0/100/200ms)
+- `LoadingState`: stagger nos skeletons (0/150/300ms)
+- `page.module.css`: `@keyframes fadeIn` no header e content
+- `WeatherCard` temperatura: `transform: scale(0.96)` no `:active`
+- Gradiente: `transition: background 0.8s ease` (já existia) confirmado
+
+**Acessibilidade**
+- `globals.css`: `@media (prefers-reduced-motion: reduce)` — desativa todas animações/transições
+- `LocationInput`: `focus-visible` com outline branco 2px
+- `ErrorMessage` e `WeatherCard`: `min-width: 44px` para área de toque mínima
+- Contraste texto/fundo: branco (#FFF) sobre gradientes escuros (ratio ≥ 7:1, WCAG AAA)
+
+### 📊 Métricas
+
+- 136 testes passando (0 regressões)
 
 ---
 

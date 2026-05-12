@@ -21,10 +21,11 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   color: var(--text-primary);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   font-family: var(--font-sans);
   outline: none;
   transition: border-color 0.2s ease, background 0.2s ease;
+  min-height: 44px;
 }
 
 .input::placeholder {
@@ -34,6 +35,11 @@
 .input:focus {
   border-color: rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.2);
+}
+
+.input:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
 }
 
 .input:disabled {
@@ -61,6 +67,12 @@
   font-size: var(--text-sm);
   color: hsl(0, 80%, 75%);
   padding: 0 var(--space-1);
+}
+
+@media (min-width: 768px) {
+  .input {
+    font-size: var(--text-lg);
+  }
 }
 
 @keyframes spin {
