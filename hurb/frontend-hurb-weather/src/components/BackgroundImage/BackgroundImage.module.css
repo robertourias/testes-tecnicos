@@ -1,0 +1,36 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background-color: hsl(0, 0%, 10%);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  transition: background 0.8s ease;
+}
+
+.cold {
+  background: var(--gradient-cold);
+}
+
+.warm {
+  background: var(--gradient-warm);
+}
+
+.hot {
+  background: var(--gradient-hot);
+}
+
+.neutral {
+  background: var(--gradient-neutral);
+}

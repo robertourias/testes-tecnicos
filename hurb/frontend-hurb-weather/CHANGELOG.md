@@ -11,12 +11,50 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### Em desenvolvimento
 
-- ETAPA 8 — Componentes de UI (BackgroundImage, LocationInput, WeatherCard, WeatherGrid, LoadingState, ErrorMessage)
+- ETAPA 9 — Página Principal
 - ETAPA 9 — Página Principal
 - ETAPA 10 — Ícones Meteocons
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
+
+---
+
+## [0.8.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Componentes de UI (ETAPA 8)
+
+- `BackgroundImage` — imagem fullscreen `position: fixed; z-index: -1` com overlay de gradiente dinâmico por `theme: GradientTheme`; transição `0.8s ease` ao trocar tema
+- `LocationInput` — input controlado com estado local; busca ao `Enter` e `onBlur` (apenas se valor mudou); spinner `role="status"` quando `isLoading`; erro `role="alert"` quando `error`
+- `WeatherCard` — exibe label do dia (`formatWeatherDate`), ícone OpenWeather CDN (substituir por Meteocons na ETAPA 10), temperatura como `<button>` que chama `onUnitToggle`, descrição; destaque visual via classe `today`
+- `WeatherGrid` — CSS Grid 1 coluna (mobile) / 3 colunas (≥768px); delega toggle a todos os cards; primeiro card marcado como `isToday`
+- `LoadingState` — 3 skeletons com animação `@keyframes shimmer` (opacity 0.5→1→0.5); `aria-busy="true"` na section
+- `ErrorMessage` — mensagem com `role="alert"`, ícone ⚠, botão "Tentar novamente" com `aria-label`
+
+**Testes** (29 novos — total: 114)
+
+- `BackgroundImage.test.tsx` — 6 testes: src correto, null sem img, classe por tema (cold/warm/hot/neutral)
+- `LocationInput.test.tsx` — 8 testes: valor inicial, Enter, blur com valor diferente, blur sem mudança, erro, spinner, disabled, sem spinner
+- `WeatherCard.test.tsx` — 8 testes: Celsius, Fahrenheit, click toggle, classe today, sem today, descrição, alt do ícone, label "Hoje"
+- `WeatherGrid.test.tsx` — 4 testes: 3 cards, 1 today, unidade F, toggle delegado
+- `ErrorMessage.test.tsx` — 3 testes: mensagem, clique retry, botão presente
+
+### 🔧 Configurado
+
+- `jest.config.ts` — `testMatch` ampliado para incluir `**/components/**/*.test.{ts,tsx}` (testes co-localizados com componentes)
+
+### 📝 Notas Técnicas
+
+- `BackgroundImage` usa `<img alt="">` (decorativa) em vez de `next/image` — imagens do Bing são externas e o domínio muda; `next/image` exige configuração de `remotePatterns` por hostname específico
+- `WeatherCard` usa ícone via CDN OpenWeather temporariamente — ETAPA 10 substituirá pelo pack Meteocon local
+- Datas de test para `WeatherCard` usam formato `'YYYY-MM-DD HH:MM:SS'` em vez de `'YYYY-MM-DD'` para evitar parse UTC que causa offset de timezone em ambientes não-UTC
+
+### 📊 Métricas
+
+- 29 novos testes de componentes
+- Total da suíte: 114 testes em 15 suítes (0 falhas)
 
 ---
 

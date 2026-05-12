@@ -38,7 +38,7 @@
 | 5     | ✅     | v0.5.0 |
 | 6     | ✅     | v0.6.0 |
 | 7     | ✅     | v0.7.0 |
-| 8     | ⏳     | -      |
+| 8     | ✅     | v0.8.0 |
 | 9     | ⏳     | -      |
 | 10    | ⏳     | -      |
 | 11    | ⏳     | -      |
@@ -322,76 +322,76 @@
 
 ---
 
-## ETAPA 8 — Componentes de UI
+## ETAPA 8 — Componentes de UI ✅
 
-### 8.1 — BackgroundImage
+### 8.1 — BackgroundImage ✅
 
-- [ ] Criar `src/components/BackgroundImage/` (index.ts, .tsx, .module.css)
-- [ ] Imagem fullscreen com `position: fixed`, `z-index: -1`
-- [ ] Overlay com gradiente dinâmico via prop `theme: GradientTheme`
-- [ ] Transição CSS suave ao trocar tema (`transition: background 0.8s ease`)
+- [x] Criar `src/components/BackgroundImage/` (index.ts, .tsx, .module.css)
+- [x] Imagem fullscreen com `position: fixed`, `z-index: -1`
+- [x] Overlay com gradiente dinâmico via prop `theme: GradientTheme`
+- [x] Transição CSS suave ao trocar tema (`transition: background 0.8s ease`)
 
-### 8.2 — Teste de BackgroundImage
+### 8.2 — Teste de BackgroundImage ✅
 
-- [ ] Testar: renderiza imagem com src correto
-- [ ] Testar: aplica classe CSS correta por tema
+- [x] Testar: renderiza imagem com src correto
+- [x] Testar: aplica classe CSS correta por tema
 
-### 8.3 — LocationInput
+### 8.3 — LocationInput ✅
 
-- [ ] Criar `src/components/LocationInput/` (index.ts, .tsx, .module.css)
-- [ ] Input controlado com valor atual da localidade
-- [ ] Disparar busca no `Enter` e no `onBlur`
-- [ ] Exibir spinner quando `isLoading=true`
-- [ ] Exibir mensagem de erro quando `error` está presente
+- [x] Criar `src/components/LocationInput/` (index.ts, .tsx, .module.css)
+- [x] Input controlado com valor atual da localidade
+- [x] Disparar busca no `Enter` e no `onBlur`
+- [x] Exibir spinner quando `isLoading=true`
+- [x] Exibir mensagem de erro quando `error` está presente
 
-### 8.4 — Teste de LocationInput
+### 8.4 — Teste de LocationInput ✅
 
-- [ ] Testar: renderiza com valor inicial
-- [ ] Testar: chama `onSearch` ao pressionar Enter
-- [ ] Testar: chama `onSearch` ao perder foco
-- [ ] Testar: exibe mensagem de erro
-- [ ] Testar: exibe estado de loading
+- [x] Testar: renderiza com valor inicial
+- [x] Testar: chama `onSearch` ao pressionar Enter
+- [x] Testar: chama `onSearch` ao perder foco
+- [x] Testar: exibe mensagem de erro
+- [x] Testar: exibe estado de loading
 
-### 8.5 — WeatherCard
+### 8.5 — WeatherCard ✅
 
-- [ ] Criar `src/components/WeatherCard/` (index.ts, .tsx, .module.css)
-- [ ] Exibir: label do dia, ícone Meteocon, temperatura formatada, descrição
-- [ ] Temperatura é um `<button>` que chama `onUnitToggle`
-- [ ] Highlight visual quando `isToday=true`
+- [x] Criar `src/components/WeatherCard/` (index.ts, .tsx, .module.css)
+- [x] Exibir: label do dia, ícone OpenWeather (substituir por Meteocon na ETAPA 10), temperatura formatada, descrição
+- [x] Temperatura é um `<button>` que chama `onUnitToggle`
+- [x] Highlight visual quando `isToday=true`
 
-### 8.6 — Teste de WeatherCard
+### 8.6 — Teste de WeatherCard ✅
 
-- [ ] Testar: exibe temperatura em Celsius
-- [ ] Testar: exibe temperatura em Fahrenheit
-- [ ] Testar: chama `onUnitToggle` ao clicar na temperatura
-- [ ] Testar: aplica classe de destaque quando `isToday=true`
+- [x] Testar: exibe temperatura em Celsius
+- [x] Testar: exibe temperatura em Fahrenheit
+- [x] Testar: chama `onUnitToggle` ao clicar na temperatura
+- [x] Testar: aplica classe de destaque quando `isToday=true`
 
-### 8.7 — WeatherGrid
+### 8.7 — WeatherGrid ✅
 
-- [ ] Criar `src/components/WeatherGrid/` (index.ts, .tsx, .module.css)
-- [ ] Grid responsivo: 1 coluna em mobile, 3 colunas em desktop
-- [ ] Renderizar 3 `WeatherCard`s
+- [x] Criar `src/components/WeatherGrid/` (index.ts, .tsx, .module.css)
+- [x] Grid responsivo: 1 coluna em mobile, 3 colunas em desktop
+- [x] Renderizar 3 `WeatherCard`s
 
-### 8.8 — Teste de WeatherGrid
+### 8.8 — Teste de WeatherGrid ✅
 
-- [ ] Testar: renderiza exatamente 3 cards
-- [ ] Testar: passa props corretas para cada card
+- [x] Testar: renderiza exatamente 3 cards
+- [x] Testar: passa props corretas para cada card
 
-### 8.9 — LoadingState
+### 8.9 — LoadingState ✅
 
-- [ ] Criar `src/components/LoadingState/` (index.ts, .tsx, .module.css)
-- [ ] Skeleton de 3 cards com animação de shimmer (`@keyframes`)
+- [x] Criar `src/components/LoadingState/` (index.ts, .tsx, .module.css)
+- [x] Skeleton de 3 cards com animação de shimmer (`@keyframes`)
 
-### 8.10 — ErrorMessage
+### 8.10 — ErrorMessage ✅
 
-- [ ] Criar `src/components/ErrorMessage/` (index.ts, .tsx, .module.css)
-- [ ] Exibir mensagem de erro com ícone
-- [ ] Botão "Tentar novamente" que chama prop `onRetry`
+- [x] Criar `src/components/ErrorMessage/` (index.ts, .tsx, .module.css)
+- [x] Exibir mensagem de erro com ícone
+- [x] Botão "Tentar novamente" que chama prop `onRetry`
 
-### 8.11 — Teste de ErrorMessage
+### 8.11 — Teste de ErrorMessage ✅
 
-- [ ] Testar: exibe mensagem correta
-- [ ] Testar: chama `onRetry` ao clicar no botão
+- [x] Testar: exibe mensagem correta
+- [x] Testar: chama `onRetry` ao clicar no botão
 
 ---
 

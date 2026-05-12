@@ -19,7 +19,7 @@ const config: Config = {
     '!src/**/__tests__/**',
     '!src/**/__mocks__/**',
   ],
-  testMatch: ['**/__tests__/**/*.test.{ts,tsx}'],
+  testMatch: ['**/__tests__/**/*.test.{ts,tsx}', '**/components/**/*.test.{ts,tsx}'],
 };
 
 export default createJestConfig(config);

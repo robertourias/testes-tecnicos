@@ -1,0 +1,67 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  background: var(--surface-overlay);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+}
+
+.skeletonDate,
+.skeletonIcon,
+.skeletonTemp,
+.skeletonDesc {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeletonDate {
+  width: 4rem;
+  height: 0.875rem;
+}
+
+.skeletonIcon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+
+.skeletonTemp {
+  width: 6rem;
+  height: 3rem;
+}
+
+.skeletonDesc {
+  width: 7rem;
+  height: 0.875rem;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

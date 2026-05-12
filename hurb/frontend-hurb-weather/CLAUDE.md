@@ -187,10 +187,11 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 - **ETAPA 5** — Serviços de API (v0.5.0)
 - **ETAPA 6** — Custom Hooks (v0.6.0)
 - **ETAPA 7** — Sistema de Design (v0.7.0)
+- **ETAPA 8** — Componentes de UI (v0.8.0)
 
 ### 🚧 Próximas Etapas
 
-- **ETAPA 8** — Componentes de UI
+- **ETAPA 9** — Página Principal
 - **ETAPA 7** — Sistema de Design (CSS)
 - **ETAPA 8** — Componentes de UI
 - **ETAPA 9** — Página Principal
