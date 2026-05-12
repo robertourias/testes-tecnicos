@@ -76,6 +76,18 @@ Rules, agents e skills estão em `.claude/` e são carregados automaticamente.
 
 ---
 
+## Fluxo de Trabalho com Git
+
+> **IMPORTANTE:** Nunca criar commits sem confirmação explícita do usuário.
+
+Ao concluir uma tarefa ou etapa:
+
+1. Apresentar o resumo das mudanças
+2. Aguardar confirmação do usuário antes de executar `git commit`
+3. Só então criar o commit seguindo Conventional Commits
+
+---
+
 ## Comandos
 
 ```bash
