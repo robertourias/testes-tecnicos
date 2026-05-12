@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp ../temp-next/package.json .)",
+      "Bash(cp ../temp-next/package-lock.json .)",
+      "Bash(cp ../temp-next/tsconfig.json .)",
+      "Bash(cp ../temp-next/next.config.ts .)",
+      "Bash(cp ../temp-next/next-env.d.ts .)",
+      "Bash(npm install *)"
+    ]
+  }
+}

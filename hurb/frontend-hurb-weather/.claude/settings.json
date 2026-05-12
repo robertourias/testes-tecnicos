@@ -17,11 +17,7 @@
       "Write(tsconfig.json)",
       "Write(package.json)"
     ],
-    "deny": [
-      "Bash(rm -rf *)",
-      "Write(.env.local)",
-      "Write(.env)"
-    ]
+    "deny": ["Bash(rm -rf *)", "Write(.env.local)", "Write(.env)"]
   },
   "model": "claude-sonnet-4-5"
 }

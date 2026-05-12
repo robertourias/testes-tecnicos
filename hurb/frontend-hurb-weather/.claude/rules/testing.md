@@ -11,11 +11,11 @@
 
 ## Ferramentas
 
-| Tipo | Ferramenta | Config |
-|------|-----------|--------|
-| Unitário / Integração | Jest + @testing-library/react | `jest.config.ts` |
-| Mock de APIs | MSW (Mock Service Worker) | `src/__mocks__/handlers.ts` |
-| E2E | Playwright | `playwright.config.ts` |
+| Tipo                  | Ferramenta                    | Config                      |
+| --------------------- | ----------------------------- | --------------------------- |
+| Unitário / Integração | Jest + @testing-library/react | `jest.config.ts`            |
+| Mock de APIs          | MSW (Mock Service Worker)     | `src/__mocks__/handlers.ts` |
+| E2E                   | Playwright                    | `playwright.config.ts`      |
 
 ---
 
@@ -44,16 +44,19 @@ describe('getGradientColor', () => {
 ### O Que Testar
 
 **Unitários — sempre testar:**
+
 - Todas as funções em `/utils/` (puras, sem efeitos colaterais)
 - Custom hooks com `renderHook` e mocks de dependências externas
 - Casos de borda: valores null/undefined, extremos de temperatura
 
 **Integração — sempre testar:**
+
 - Componentes que fazem chamadas de API (via MSW)
 - Fluxo: localidade → busca → renderização dos cards
 - Estados de loading e erro
 
 **E2E — sempre testar:**
+
 - Happy path completo: abrir página → geolocalização → previsão exibida
 - Troca de localidade via input
 - Toggle Celsius ↔ Fahrenheit ao clicar na temperatura
@@ -66,16 +69,16 @@ describe('getGradientColor', () => {
 Todos os handlers MSW ficam em `src/__mocks__/handlers.ts`:
 
 ```typescript
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse } from 'msw';
 
 export const handlers = [
   http.get('http://api.openweathermap.org/*', () => {
-    return HttpResponse.json(mockWeatherData)
+    return HttpResponse.json(mockWeatherData);
   }),
   http.get('https://api.opencagedata.com/*', () => {
-    return HttpResponse.json(mockGeocodeData)
+    return HttpResponse.json(mockGeocodeData);
   }),
-]
+];
 ```
 
 ---

@@ -7,6 +7,7 @@ Workflow para configurar ou atualizar o ambiente Docker do projeto, garantindo q
 ## Gatilho
 
 Usar quando:
+
 - Configurar Docker pela primeira vez
 - Atualizar dependências que afetam a imagem
 - Trocar versão do Node
@@ -46,6 +47,7 @@ __tests__
 Copiar a estrutura do `AGENT.md` do DevOps agent e adaptar se necessário.
 
 Pontos críticos:
+
 - Base: `node:20-alpine` (imagem menor)
 - Stage `development`: inclui `devDependencies`, monta volume
 - Stage `builder`: roda `npm run build` com `output: 'standalone'`
@@ -61,16 +63,15 @@ Referência no `AGENT.md` do DevOps agent.
 const nextConfig: NextConfig = {
   output: 'standalone',
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'www.bing.com' },
-    ],
+    remotePatterns: [{ protocol: 'https', hostname: 'www.bing.com' }],
   },
-}
+};
 ```
 
 ### 6. Copiar .env.example → .env.local
 
 O usuário deve fazer isso manualmente:
+
 ```bash
 cp .env.example .env.local
 # Editar .env.local com as chaves reais
@@ -96,13 +97,13 @@ docker images | grep hurb
 
 ### 8. Troubleshooting Comum
 
-| Problema | Causa Provável | Solução |
-|---------|---------------|---------|
-| `ENOENT: .env.local` | Arquivo não criado | Copiar `.env.example` para `.env.local` |
-| Build falha em `npm run build` | Erro de TypeScript | Rodar `npm run build` localmente para ver erros |
-| Página em branco | Variável de env ausente no container | Verificar `env_file` no compose |
-| Hot reload não funciona | Volume não montado | Verificar `volumes:` no compose dev |
-| Imagem muito grande | `.dockerignore` mal configurado | Verificar se `node_modules` está excluído |
+| Problema                       | Causa Provável                       | Solução                                         |
+| ------------------------------ | ------------------------------------ | ----------------------------------------------- |
+| `ENOENT: .env.local`           | Arquivo não criado                   | Copiar `.env.example` para `.env.local`         |
+| Build falha em `npm run build` | Erro de TypeScript                   | Rodar `npm run build` localmente para ver erros |
+| Página em branco               | Variável de env ausente no container | Verificar `env_file` no compose                 |
+| Hot reload não funciona        | Volume não montado                   | Verificar `volumes:` no compose dev             |
+| Imagem muito grande            | `.dockerignore` mal configurado      | Verificar se `node_modules` está excluído       |
 
 ### 9. Checklist Final
 

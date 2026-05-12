@@ -18,29 +18,29 @@ Para converter latitude e longitude em uma localidade utilize o [OpenCage](https
 
 Os ícones podem ser encontrados em http://www.alessioatzeni.com/meteocons/.
 
-O layout deve ser seguido, mas você pode sugerir melhorias. Descreva essas melhorias no [MELHORIAS.md](./MELHORIAS.md) e diga o por que delas. 
+O layout deve ser seguido, mas você pode sugerir melhorias. Descreva essas melhorias no [MELHORIAS.md](./MELHORIAS.md) e diga o por que delas.
 
 ## Requisitos
 
--   Faça em React e Nextjs
--   Para a folha de estilo, você pode usar o que preferir (CSS Modules, CSS-in-JS)
--   Preferencialmente use Webpack. Se preferir, você pode usar [create-react-app](https://github.com/facebook/create-react-app) ou similares. 
--   É interessante que a aplicação esteja pronta para produção. Criar no Docker um `stage` para produção e um para desenvolvimento da pontos extras.
--   O código precisa rodar dentro de um container Docker.
--   Para executar seu código, deve ser preciso apenas rodar os seguintes comandos:
-    -   docker compose up
-    -   comando para instalar dependências
-    -   comando para executar a aplicação
--   Criar testes unitários, de integração e end-to-end.
+- Faça em React e Nextjs
+- Para a folha de estilo, você pode usar o que preferir (CSS Modules, CSS-in-JS)
+- Preferencialmente use Webpack. Se preferir, você pode usar [create-react-app](https://github.com/facebook/create-react-app) ou similares.
+- É interessante que a aplicação esteja pronta para produção. Criar no Docker um `stage` para produção e um para desenvolvimento da pontos extras.
+- O código precisa rodar dentro de um container Docker.
+- Para executar seu código, deve ser preciso apenas rodar os seguintes comandos:
+  - docker compose up
+  - comando para instalar dependências
+  - comando para executar a aplicação
+- Criar testes unitários, de integração e end-to-end.
 
 ## Critério de qualidade
 
--   **É executado conforme esperado**: O passo-a-passo pedido para rodar a aplicação funciona?
--   **Organização do código**: Separação de módulos e organização do projeto (back-end e front-end).
--   **Clareza**: O README explica de forma resumida qual é o problema e como pode rodar a aplicação?
--   **Legibilidade do código** É fácil ler e entender o código? Existem muitas variáveis/funções com nome enigmático? 
--   **Segurança**: Existe alguma vulnerabilidade clara?
--   **Cobertura de testes** Qualidade e cobertura dos testes (não espero cobertura completa).
--   **UX**: A interface é de fácil uso e auto-explicativa? As rotas/métodos da API são intuitivos?
+- **É executado conforme esperado**: O passo-a-passo pedido para rodar a aplicação funciona?
+- **Organização do código**: Separação de módulos e organização do projeto (back-end e front-end).
+- **Clareza**: O README explica de forma resumida qual é o problema e como pode rodar a aplicação?
+- **Legibilidade do código** É fácil ler e entender o código? Existem muitas variáveis/funções com nome enigmático?
+- **Segurança**: Existe alguma vulnerabilidade clara?
+- **Cobertura de testes** Qualidade e cobertura dos testes (não espero cobertura completa).
+- **UX**: A interface é de fácil uso e auto-explicativa? As rotas/métodos da API são intuitivos?
 
-## Insumo 
+## Insumo

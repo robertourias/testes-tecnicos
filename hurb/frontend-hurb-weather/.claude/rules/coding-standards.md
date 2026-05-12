@@ -76,10 +76,10 @@ export function WeatherCard({ day, unit, onUnitToggle }: WeatherCardProps) { ...
 ```typescript
 // services/openweather.ts
 export async function getWeatherForecast(location: string): Promise<WeatherDay[]> {
-  const res = await fetch(`${BASE_URL}?q=${location}&APPID=${API_KEY}&units=metric`)
-  if (!res.ok) throw new Error(`Falha ao buscar previsão para "${location}"`)
-  const data = await res.json()
-  return parseWeatherResponse(data)
+  const res = await fetch(`${BASE_URL}?q=${location}&APPID=${API_KEY}&units=metric`);
+  if (!res.ok) throw new Error(`Falha ao buscar previsão para "${location}"`);
+  const data = await res.json();
+  return parseWeatherResponse(data);
 }
 ```
 

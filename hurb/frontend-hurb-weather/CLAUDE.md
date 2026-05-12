@@ -6,21 +6,21 @@ Microsite responsivo de previsão do tempo desenvolvido com **Next.js + TypeScri
 
 - **Desafio:** [`docs/CHALLENGE.md`](./docs/CHALLENGE.md)
 - **Backlog:** [`docs/BACKLOG.md`](./docs/BACKLOG.md)
-- **Melhorias propostas:** [`docs/MELHORIAS.md`](./docs/MELHORIAS.md) *(a criar)*
+- **Melhorias propostas:** [`docs/MELHORIAS.md`](./docs/MELHORIAS.md) _(a criar)_
 - **Layout de referência:** [`docs/exemplo.jpg`](./docs/exemplo.jpg)
 
 ---
 
 ## Stack Tecnológica
 
-| Camada | Tecnologia |
-|--------|-----------|
-| Framework | Next.js 14+ (App Router) com TypeScript |
-| Estilo | CSS Modules |
-| Testes unitários / integração | Jest + Testing Library + MSW |
-| Testes E2E | Playwright |
-| Container | Docker multi-stage (`development` + `production`) |
-| Ícones | Meteocons (http://www.alessioatzeni.com/meteocons/) |
+| Camada                        | Tecnologia                                          |
+| ----------------------------- | --------------------------------------------------- |
+| Framework                     | Next.js 14+ (App Router) com TypeScript             |
+| Estilo                        | CSS Modules                                         |
+| Testes unitários / integração | Jest + Testing Library + MSW                        |
+| Testes E2E                    | Playwright                                          |
+| Container                     | Docker multi-stage (`development` + `production`)   |
+| Ícones                        | Meteocons (http://www.alessioatzeni.com/meteocons/) |
 
 ---
 

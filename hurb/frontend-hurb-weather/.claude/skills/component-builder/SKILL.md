@@ -7,6 +7,7 @@ Workflow para criar novos componentes React seguindo os padrões do projeto (Nex
 ## Gatilho
 
 Usar quando:
+
 - Criar um novo componente de UI
 - Refatorar um componente existente
 - Extrair lógica repetida em componente reutilizável
@@ -27,27 +28,23 @@ src/components/NomeDoComponente/
 
 ```typescript
 // NomeDoComponente.tsx
-'use client' // somente se necessário (interatividade, browser API)
+'use client'; // somente se necessário (interatividade, browser API)
 
 interface NomeDoComponenteProps {
   // props tipadas explicitamente
-  valor: string
-  onAcao: () => void
-  opcional?: boolean
+  valor: string;
+  onAcao: () => void;
+  opcional?: boolean;
 }
 ```
 
 ### 3. Implementar Componente
 
 ```tsx
-import styles from './NomeDoComponente.module.css'
+import styles from './NomeDoComponente.module.css';
 
 export function NomeDoComponente({ valor, onAcao, opcional = false }: NomeDoComponenteProps) {
-  return (
-    <div className={styles.container}>
-      {/* implementação */}
-    </div>
-  )
+  return <div className={styles.container}>{/* implementação */}</div>;
 }
 ```
 
@@ -62,46 +59,48 @@ export function NomeDoComponente({ valor, onAcao, opcional = false }: NomeDoComp
 }
 
 /* Estado hover */
-.container:hover { }
+.container:hover {
+}
 
 /* Responsividade (mobile-first) */
-@media (min-width: 768px) { }
+@media (min-width: 768px) {
+}
 ```
 
 ### 5. Criar index.ts
 
 ```typescript
 // index.ts
-export { NomeDoComponente } from './NomeDoComponente'
-export type { NomeDoComponenteProps } from './NomeDoComponente'
+export { NomeDoComponente } from './NomeDoComponente';
+export type { NomeDoComponenteProps } from './NomeDoComponente';
 ```
 
 ### 6. Criar Teste Básico
 
 ```tsx
 // NomeDoComponente.test.tsx
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { NomeDoComponente } from './NomeDoComponente'
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { NomeDoComponente } from './NomeDoComponente';
 
 describe('NomeDoComponente', () => {
   const defaultProps = {
     valor: 'teste',
     onAcao: jest.fn(),
-  }
+  };
 
   it('renderiza corretamente com props padrão', () => {
-    render(<NomeDoComponente {...defaultProps} />)
-    expect(screen.getByText('teste')).toBeInTheDocument()
-  })
+    render(<NomeDoComponente {...defaultProps} />);
+    expect(screen.getByText('teste')).toBeInTheDocument();
+  });
 
   it('chama onAcao ao interagir', async () => {
-    const onAcao = jest.fn()
-    render(<NomeDoComponente {...defaultProps} onAcao={onAcao} />)
-    await userEvent.click(screen.getByRole('button'))
-    expect(onAcao).toHaveBeenCalledTimes(1)
-  })
-})
+    const onAcao = jest.fn();
+    render(<NomeDoComponente {...defaultProps} onAcao={onAcao} />);
+    await userEvent.click(screen.getByRole('button'));
+    expect(onAcao).toHaveBeenCalledTimes(1);
+  });
+});
 ```
 
 ### 7. Checklist de Qualidade
@@ -121,10 +120,10 @@ describe('NomeDoComponente', () => {
 
 ```typescript
 interface WeatherCardProps {
-  day: WeatherDay       // dados do dia
-  unit: 'C' | 'F'      // unidade de temperatura atual
-  onUnitToggle: () => void  // callback ao clicar na temperatura
-  isToday?: boolean     // destaque visual para o dia atual
+  day: WeatherDay; // dados do dia
+  unit: 'C' | 'F'; // unidade de temperatura atual
+  onUnitToggle: () => void; // callback ao clicar na temperatura
+  isToday?: boolean; // destaque visual para o dia atual
 }
 ```
 
@@ -132,9 +131,9 @@ interface WeatherCardProps {
 
 ```typescript
 interface LocationInputProps {
-  value: string
-  onSearch: (location: string) => void
-  isLoading?: boolean
-  error?: string | null
+  value: string;
+  onSearch: (location: string) => void;
+  isLoading?: boolean;
+  error?: string | null;
 }
 ```

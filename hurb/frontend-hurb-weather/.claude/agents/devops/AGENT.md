@@ -71,7 +71,7 @@ services:
       context: .
       target: development
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
       - /app/node_modules
@@ -86,7 +86,7 @@ services:
       context: .
       target: production
     ports:
-      - "3000:3000"
+      - '3000:3000'
     env_file:
       - .env.local
     profiles:
@@ -94,6 +94,7 @@ services:
 ```
 
 **Uso:**
+
 ```bash
 # Desenvolvimento (padrão)
 docker compose --profile dev up
@@ -138,16 +139,16 @@ NEXT_PUBLIC_OPENCAGE_API_KEY=c63386b4f77e46de817bdf94f552cddf
 ## next.config.ts (Para Produção)
 
 ```typescript
-import type { NextConfig } from 'next'
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'standalone',   // habilita build standalone para Docker
+  output: 'standalone', // habilita build standalone para Docker
   images: {
-    domains: ['www.bing.com'],  // permite imagens do Bing via next/image
+    domains: ['www.bing.com'], // permite imagens do Bing via next/image
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
 ```
 
 ---

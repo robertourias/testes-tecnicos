@@ -62,26 +62,28 @@ GET https://www.bing.com/HPImageArchive.aspx
 ```typescript
 // src/services/openweather.ts
 
-import type { OpenWeatherResponse, WeatherDay } from '@/types/weather'
+import type { OpenWeatherResponse, WeatherDay } from '@/types/weather';
 
-const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast'
-const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_APPID
+const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast';
+const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_APPID;
 
 export async function getWeatherForecast(location: string): Promise<WeatherDay[]> {
-  const res = await fetch(`${BASE_URL}?q=${location}&APPID=${API_KEY}&units=metric&lang=pt_br&cnt=17`)
-  if (!res.ok) throw new Error(`Erro ao buscar previsão para "${location}" (status ${res.status})`)
-  const data: OpenWeatherResponse = await res.json()
-  return parseWeatherForecast(data)
+  const res = await fetch(
+    `${BASE_URL}?q=${location}&APPID=${API_KEY}&units=metric&lang=pt_br&cnt=17`
+  );
+  if (!res.ok) throw new Error(`Erro ao buscar previsão para "${location}" (status ${res.status})`);
+  const data: OpenWeatherResponse = await res.json();
+  return parseWeatherForecast(data);
 }
 
 function parseWeatherForecast(data: OpenWeatherResponse): WeatherDay[] {
-  const indices = [0, 8, 16]
-  return indices.map(i => ({
+  const indices = [0, 8, 16];
+  return indices.map((i) => ({
     date: data.list[i].dt_txt,
     temp: Math.round(data.list[i].main.temp),
     description: data.list[i].weather[0].description,
     icon: data.list[i].weather[0].icon,
     feelsLike: Math.round(data.list[i].main.feels_like),
-  }))
+  }));
 }
 ```

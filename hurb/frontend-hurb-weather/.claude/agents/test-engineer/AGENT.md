@@ -53,51 +53,52 @@ __tests__/e2e/
 
 ```typescript
 // src/__mocks__/server.ts
-import { setupServer } from 'msw/node'
-import { handlers } from './handlers'
-export const server = setupServer(...handlers)
+import { setupServer } from 'msw/node';
+import { handlers } from './handlers';
+export const server = setupServer(...handlers);
 
 // jest.setup.ts
-import { server } from '@/__mocks__/server'
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+import { server } from '@/__mocks__/server';
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 ```
 
 ### Handlers de Exemplo
 
 ```typescript
 // src/__mocks__/handlers.ts
-import { http, HttpResponse } from 'msw'
-import { mockWeatherResponse } from './data/weather'
-import { mockGeocodeResponse } from './data/geocode'
+import { http, HttpResponse } from 'msw';
+import { mockWeatherResponse } from './data/weather';
+import { mockGeocodeResponse } from './data/geocode';
 
 export const handlers = [
   http.get('http://api.openweathermap.org/data/2.5/forecast', () => {
-    return HttpResponse.json(mockWeatherResponse)
+    return HttpResponse.json(mockWeatherResponse);
   }),
   http.get('https://api.opencagedata.com/geocode/v1/json', () => {
-    return HttpResponse.json(mockGeocodeResponse)
+    return HttpResponse.json(mockGeocodeResponse);
   }),
   http.get('https://www.bing.com/HPImageArchive.aspx', () => {
     return HttpResponse.json({
-      images: [{ url: '/th?id=OHR.TestImage_PT-BR.jpg&rf=LaDigue_1920x1080.jpg' }]
-    })
+      images: [{ url: '/th?id=OHR.TestImage_PT-BR.jpg&rf=LaDigue_1920x1080.jpg' }],
+    });
   }),
-]
+];
 ```
 
 ## Mock de Geolocalização (Playwright)
 
 ```typescript
 // playwright.config.ts ou no teste
-await page.context().grantPermissions(['geolocation'])
-await page.context().setGeolocation({ latitude: -22.9068, longitude: -43.1729 })
+await page.context().grantPermissions(['geolocation']);
+await page.context().setGeolocation({ latitude: -22.9068, longitude: -43.1729 });
 ```
 
 ## Dados de Mock
 
 Manter arquivos de dados de mock em `src/__mocks__/data/`:
+
 - `weather.ts` — resposta simulada do OpenWeather com 17 itens na lista
 - `geocode.ts` — resposta simulada do OpenCage para Rio de Janeiro
 
