@@ -40,7 +40,7 @@
 | 7     | ✅     | v0.7.0 |
 | 8     | ✅     | v0.8.0 |
 | 9     | ✅     | v0.9.0 |
-| 10    | ⏳     | -      |
+| 10    | ✅     | v0.10.0 |
 | 11    | ⏳     | -      |
 | 12    | ⏳     | -      |
 | 13    | ⏳     | -      |
@@ -413,13 +413,15 @@
 
 ---
 
-## ETAPA 10 — Ícones Meteocons
+## ETAPA 10 — Ícones Meteocons ✅
 
-### 10.1 — Download dos ícones
+### 10.1 — Ícones SVG customizados ✅
 
-- [ ] Baixar pack de ícones de http://www.alessioatzeni.com/meteocons/
-- [ ] Salvar os arquivos necessários em `public/icons/`
-- [ ] Confirmar que os nomes de arquivo batem com o mapeamento em `src/utils/icons.ts`
+- [x] Criar 9 ícones SVG em `public/icons/` com nomes batendo o mapeamento de `icons.ts`
+- [x] Ícones: sun, cloud, cloud-sun, cloud-rain, cloud-drizzle, cloud-snow, cloud-flash, cloud-fog, cloud-hail
+- [x] Adicionar `getMeteoconIconByCode(iconCode: string)` em `icons.ts` mapeando código OpenWeather string ("01d") para nome do ícone
+- [x] Atualizar `WeatherCard` para usar `/icons/{nome}.svg` via `getMeteoconIconByCode`
+- [x] Adicionar 11 testes unitários para `getMeteoconIconByCode`
 
 ---
 

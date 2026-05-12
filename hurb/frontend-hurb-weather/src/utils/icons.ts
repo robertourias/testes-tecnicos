@@ -60,3 +60,28 @@ export function getMeteoconIcon(weatherCode: number): string {
   // Fallback para código desconhecido
   return 'sun';
 }
+
+/**
+ * Mapeia código de ícone da OpenWeather (ex: "01d", "10n") para nome do ícone Meteocon
+ *
+ * O prefixo numérico do código identifica a condição:
+ * 01 → céu limpo, 02 → poucas nuvens, 03/04 → nublado
+ * 09 → garoa, 10 → chuva, 11 → tempestade, 13 → neve, 50 → névoa
+ */
+export function getMeteoconIconByCode(iconCode: string): string {
+  const prefix = iconCode.slice(0, 2);
+
+  const map: Record<string, string> = {
+    '01': 'sun',
+    '02': 'cloud-sun',
+    '03': 'cloud',
+    '04': 'cloud',
+    '09': 'cloud-drizzle',
+    '10': 'cloud-rain',
+    '11': 'cloud-flash',
+    '13': 'cloud-snow',
+    '50': 'cloud-fog',
+  };
+
+  return map[prefix] ?? 'sun';
+}

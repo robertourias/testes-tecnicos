@@ -189,10 +189,11 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 - **ETAPA 7** — Sistema de Design (v0.7.0)
 - **ETAPA 8** — Componentes de UI (v0.8.0)
 - **ETAPA 9** — Página Principal (v0.9.0)
+- **ETAPA 10** — Ícones Meteocons (v0.10.0)
 
 ### 🚧 Próximas Etapas
 
-- **ETAPA 10** — Ícones Meteocons
+- **ETAPA 11** — Responsividade e Polimento
 - **ETAPA 7** — Sistema de Design (CSS)
 - **ETAPA 8** — Componentes de UI
 - **ETAPA 9** — Página Principal

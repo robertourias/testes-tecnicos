@@ -1,4 +1,4 @@
-import { getMeteoconIcon } from '../icons';
+import { getMeteoconIcon, getMeteoconIconByCode } from '../icons';
 
 describe('getMeteoconIcon', () => {
   describe('grupo 2xx - tempestade', () => {
@@ -91,5 +91,51 @@ describe('getMeteoconIcon', () => {
     it('retorna "sun" para código 0', () => {
       expect(getMeteoconIcon(0)).toBe('sun');
     });
+  });
+});
+
+describe('getMeteoconIconByCode', () => {
+  it('retorna "sun" para "01d" (céu limpo dia)', () => {
+    expect(getMeteoconIconByCode('01d')).toBe('sun');
+  });
+
+  it('retorna "sun" para "01n" (céu limpo noite)', () => {
+    expect(getMeteoconIconByCode('01n')).toBe('sun');
+  });
+
+  it('retorna "cloud-sun" para "02d" (poucas nuvens)', () => {
+    expect(getMeteoconIconByCode('02d')).toBe('cloud-sun');
+  });
+
+  it('retorna "cloud" para "03d" (nuvens dispersas)', () => {
+    expect(getMeteoconIconByCode('03d')).toBe('cloud');
+  });
+
+  it('retorna "cloud" para "04d" (nuvens quebradas)', () => {
+    expect(getMeteoconIconByCode('04d')).toBe('cloud');
+  });
+
+  it('retorna "cloud-drizzle" para "09d" (garoa)', () => {
+    expect(getMeteoconIconByCode('09d')).toBe('cloud-drizzle');
+  });
+
+  it('retorna "cloud-rain" para "10d" (chuva)', () => {
+    expect(getMeteoconIconByCode('10d')).toBe('cloud-rain');
+  });
+
+  it('retorna "cloud-flash" para "11d" (tempestade)', () => {
+    expect(getMeteoconIconByCode('11d')).toBe('cloud-flash');
+  });
+
+  it('retorna "cloud-snow" para "13d" (neve)', () => {
+    expect(getMeteoconIconByCode('13d')).toBe('cloud-snow');
+  });
+
+  it('retorna "cloud-fog" para "50d" (névoa)', () => {
+    expect(getMeteoconIconByCode('50d')).toBe('cloud-fog');
+  });
+
+  it('retorna "sun" para código desconhecido', () => {
+    expect(getMeteoconIconByCode('99x')).toBe('sun');
   });
 });

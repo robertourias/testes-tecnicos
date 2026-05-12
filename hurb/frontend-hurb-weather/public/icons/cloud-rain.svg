@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Nuvem -->
+  <path d="M75 58H28a18 18 0 0 1 0-36c1 0 2 0 3 .1A20 20 0 0 1 70 35a15 15 0 0 1 5 23z" fill="white" opacity="0.9"/>
+  <!-- Gotas de chuva -->
+  <line x1="35" y1="68" x2="31" y2="82" stroke="white" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+  <line x1="50" y1="68" x2="46" y2="82" stroke="white" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+  <line x1="65" y1="68" x2="61" y2="82" stroke="white" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+</svg>

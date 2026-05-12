@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Sol atrás da nuvem -->
+  <circle cx="35" cy="42" r="14" fill="white" opacity="0.7"/>
+  <line x1="35" y1="22" x2="35" y2="28" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="35" y1="56" x2="35" y2="62" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="15" y1="42" x2="21" y2="42" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="49" y1="42" x2="55" y2="42" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="21" y1="28" x2="25" y2="32" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="45" y1="52" x2="49" y2="56" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="49" y1="28" x2="45" y2="32" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="25" y1="52" x2="21" y2="56" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <!-- Nuvem na frente -->
+  <path d="M80 72H42a15 15 0 0 1 0-30c1 0 2 0 2.5.1A17 17 0 0 1 75 54a13 13 0 0 1 5 18z" fill="white" opacity="0.95"/>
+</svg>

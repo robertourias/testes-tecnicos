@@ -11,7 +11,6 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### Em desenvolvimento
 
-- ETAPA 10 — Ícones Meteocons
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
@@ -20,6 +19,45 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
+
+---
+
+## [0.10.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Ícones Meteocons (ETAPA 10)
+
+**SVGs em `public/icons/`** (9 arquivos, estilo branco sobre transparente):
+
+| Arquivo | Condição |
+|---|---|
+| `sun.svg` | Céu limpo (01d/n) |
+| `cloud-sun.svg` | Poucas nuvens (02d/n) |
+| `cloud.svg` | Nublado (03d/n, 04d/n) |
+| `cloud-drizzle.svg` | Garoa (09d/n) |
+| `cloud-rain.svg` | Chuva (10d/n) |
+| `cloud-flash.svg` | Tempestade (11d/n) |
+| `cloud-snow.svg` | Neve (13d/n) |
+| `cloud-fog.svg` | Névoa/neblina (50d/n) |
+| `cloud-hail.svg` | Granizo (chuva congelante) |
+
+- `src/utils/icons.ts` — adicionada `getMeteoconIconByCode(iconCode: string): string`; mapeia prefixo numérico do código OpenWeather ("01"→"sun", "11"→"cloud-flash", etc.) para nome do ícone local
+- `src/components/WeatherCard/WeatherCard.tsx` — substituído CDN OpenWeather por `/icons/{nome}.svg` via `getMeteoconIconByCode(day.icon)`
+
+### 🧪 Testes
+
+- `src/utils/__tests__/icons.test.ts` — 11 novos testes para `getMeteoconIconByCode`: todos os 9 prefixos + variante noturna + fallback
+
+### 📝 Notas Técnicas
+
+- Ícones criados como SVG customizados (branco sobre transparente) em vez de download do pack Meteocons PNG original — permite versionar no git, controlar estilo e evitar dependência de binários externos
+- `getMeteoconIconByCode` é separada de `getMeteoconIcon` (que recebe código numérico) para não quebrar a API existente
+
+### 📊 Métricas
+
+- 11 novos testes unitários
+- Total da suíte: 136 testes em 16 suítes (0 falhas)
 
 ---
 
