@@ -69,8 +69,140 @@ Co-Authored-By: Claude Sonnet 4.5 <roberto.urias@gmail.com>"
 
 ### Em desenvolvimento
 
-- ETAPA 5 — Serviços de API
 - ETAPA 6 — Custom Hooks
+- ETAPA 7 — Sistema de Design (CSS)
+
+---
+
+## [0.5.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Serviços de API (ETAPA 5)
+
+**OpenWeather Service (`src/services/openweather.ts`)**
+
+- `getWeatherForecast(location: string): Promise<WeatherDay[]>` — Busca previsão de 3 dias
+- Normalização automática de dados da API
+- Agrupamento por dia (seleção da previsão do meio-dia ~12h)
+- Tratamento de erros 404 (localidade não encontrada) e 401 (chave inválida)
+- Formatação de datas com labels amigáveis ("Hoje", "Amanhã", "Depois de amanhã")
+
+**OpenCage Service (`src/services/opencage.ts`)**
+
+- `reverseGeocode(lat: number, lng: number): Promise<string>` — Geocodificação reversa
+- Extração inteligente de nome da cidade com fallbacks:
+  - `components.city` (prioridade 1)
+  - `components.town` (prioridade 2)
+  - `components.village` (prioridade 3)
+  - `components.municipality` (prioridade 4)
+  - `formatted` (fallback final)
+- Tratamento de erros 401/403 (autenticação) e 402 (quota excedida)
+
+**Bing Daily Image Service (`src/services/bing.ts`)**
+
+- `getBingDailyImage(): Promise<string>` — Busca imagem do dia do Bing
+- Prefixação automática de URLs relativas com `https://www.bing.com`
+- Validação de resposta vazia
+- Tratamento de erro 500 (servidor)
+
+**Dados Mock Completos**
+
+- `src/__mocks__/data/weather.ts` — Mock OpenWeather com 17 itens (3 dias completos)
+- `src/__mocks__/data/geocode.ts` — Mock OpenCage para Rio de Janeiro
+- `src/__mocks__/data/bing.ts` — Mock Bing com URL realista
+
+**Handlers MSW Atualizados (`src/__mocks__/handlers.ts`)**
+
+- Handler para `http://api.openweathermap.org/data/2.5/forecast`
+- Handler para `https://api.opencagedata.com/geocode/v1/json`
+- Handler para `https://www.bing.com/HPImageArchive.aspx`
+
+**Testes Completos (20 testes)**
+
+- `src/services/__tests__/openweather.test.ts` — 6 testes
+- `src/services/__tests__/opencage.test.ts` — 8 testes
+- `src/services/__tests__/bing.test.ts` — 6 testes
+
+### 🔧 Configurado
+
+**Jest Setup (`jest.setup.ts`)**
+
+- Polyfill `whatwg-fetch` para API Fetch no Node.js
+- Polyfill `TextEncoder`/`TextDecoder` para MSW
+- Mock de variáveis de ambiente para testes:
+  - `NEXT_PUBLIC_OPENWEATHER_APPID=test_openweather_key`
+  - `NEXT_PUBLIC_OPENCAGE_API_KEY=test_opencage_key`
+
+**MSW Handlers**
+
+- Integração completa com MSW para todas as APIs externas
+- Handlers retornam mocks realistas
+- Simulação de erros HTTP para testes
+
+### 📊 Métricas
+
+**Cobertura de Testes**
+
+- Serviços: **96.92%** (meta: 70%+) ✅
+  - `bing.ts`: 100%
+  - `opencage.ts`: 93.33%
+  - `openweather.ts`: 97.87%
+- Statements: 96.92%
+- Branches: 78.94%
+- Functions: 100%
+- Lines: 96.92%
+
+**Testes**
+
+- Total: 68 testes (48 anteriores + 20 novos)
+- 100% dos testes passando
+- Tempo de execução: ~1.8s
+
+**Linhas de Código**
+
+- `openweather.ts`: 94 linhas
+- `opencage.ts`: 60 linhas
+- `bing.ts`: 41 linhas
+- **Total serviços:** 195 linhas
+
+### ✅ Validado
+
+- ✅ Integração com 3 APIs externas funcionando
+- ✅ Normalização de dados correta
+- ✅ Tratamento de erros robusto
+- ✅ Fallbacks inteligentes (cidade, town, village, etc.)
+- ✅ Mocks realistas para todos os serviços
+- ✅ Handlers MSW configurados
+- ✅ TypeScript sem erros
+- ✅ Cobertura acima de 90%
+- ✅ Prettier aplicado
+
+### 📝 Notas Técnicas
+
+**Agent Utilizado**
+
+Esta etapa foi implementada usando o **general-purpose agent**, demonstrando a eficácia de delegar tarefas multi-step complexas a subagents especializados.
+
+**Normalização de Dados**
+
+O serviço OpenWeather implementa lógica sofisticada para:
+1. Agrupar previsões de 3h em dias
+2. Selecionar a previsão mais representativa (~12h)
+3. Normalizar campos para formato interno `WeatherDay`
+4. Formatar datas com labels amigáveis em português
+
+**Fallbacks em Geocoding**
+
+O serviço OpenCage implementa cascata de fallbacks para garantir que sempre retorna um nome de localidade, mesmo quando `city` não está disponível na resposta.
+
+**Tratamento de Erros**
+
+Todos os serviços implementam tratamento específico por código HTTP:
+- 401/403: Problemas de autenticação
+- 402: Quota de API excedida
+- 404: Recurso não encontrado
+- 500: Erro do servidor
 
 ---
 

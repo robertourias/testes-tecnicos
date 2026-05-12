@@ -1,3 +1,21 @@
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
+import { mockWeatherResponse } from './data/weather';
+import { mockGeocodeResponse } from './data/geocode';
+import { mockBingResponse } from './data/bing';
 
-export const handlers: Array<ReturnType<typeof http.get | typeof http.post>> = [];
+export const handlers: Array<ReturnType<typeof http.get | typeof http.post>> = [
+  // OpenWeather API
+  http.get('http://api.openweathermap.org/data/2.5/forecast', () => {
+    return HttpResponse.json(mockWeatherResponse);
+  }),
+
+  // OpenCage Geocoding API
+  http.get('https://api.opencagedata.com/geocode/v1/json', () => {
+    return HttpResponse.json(mockGeocodeResponse);
+  }),
+
+  // Bing Daily Image API
+  http.get('https://www.bing.com/HPImageArchive.aspx', () => {
+    return HttpResponse.json(mockBingResponse);
+  }),
+];

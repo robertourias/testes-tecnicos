@@ -35,7 +35,7 @@
 | 2     | ✅     | v0.2.0 |
 | 3     | ✅     | v0.3.0 |
 | 4     | ✅     | v0.4.0 |
-| 5     | ⏳     | -      |
+| 5     | ✅     | v0.5.0 |
 | 6     | ⏳     | -      |
 | 7     | ⏳     | -      |
 | 8     | ⏳     | -      |
@@ -199,61 +199,61 @@
 
 ---
 
-## ETAPA 5 — Serviços (chamadas de API)
+## ETAPA 5 — Serviços (chamadas de API) ✅
 
-### 5.1 — Serviço OpenWeather
+### 5.1 — Serviço OpenWeather ✅
 
-- [ ] Criar `src/services/openweather.ts`
-- [ ] Implementar `getWeatherForecast(location: string): Promise<WeatherDay[]>`
-- [ ] Retornar array de 3 dias (hoje, amanhã, depois de amanhã) com dados normalizados
-- [ ] Lançar `Error` com mensagem descritiva em caso de falha HTTP
+- [x] Criar `src/services/openweather.ts`
+- [x] Implementar `getWeatherForecast(location: string): Promise<WeatherDay[]>`
+- [x] Retornar array de 3 dias (hoje, amanhã, depois de amanhã) com dados normalizados
+- [x] Lançar `Error` com mensagem descritiva em caso de falha HTTP
 
-### 5.2 — Dados mock OpenWeather
+### 5.2 — Dados mock OpenWeather ✅
 
-- [ ] Criar `src/__mocks__/data/weather.ts` com resposta simulada (17 itens em `list`)
-- [ ] Adicionar handler MSW para `api.openweathermap.org` em `handlers.ts`
+- [x] Criar `src/__mocks__/data/weather.ts` com resposta simulada (17 itens em `list`)
+- [x] Adicionar handler MSW para `api.openweathermap.org` em `handlers.ts`
 
-### 5.3 — Testes do serviço OpenWeather
+### 5.3 — Testes do serviço OpenWeather ✅
 
-- [ ] Criar `src/services/__tests__/openweather.test.ts`
-- [ ] Testar: retorna 3 dias corretamente
-- [ ] Testar: lança erro em resposta 404
-- [ ] Testar: lança erro em resposta 401 (chave inválida)
+- [x] Criar `src/services/__tests__/openweather.test.ts`
+- [x] Testar: retorna 3 dias corretamente
+- [x] Testar: lança erro em resposta 404
+- [x] Testar: lança erro em resposta 401 (chave inválida)
 
-### 5.4 — Serviço OpenCage
+### 5.4 — Serviço OpenCage ✅
 
-- [ ] Criar `src/services/opencage.ts`
-- [ ] Implementar `reverseGeocode(lat: number, lng: number): Promise<string>`
-- [ ] Extrair nome da cidade de `results[0].components.city` ou fallback para `formatted`
-- [ ] Lançar `Error` com mensagem descritiva em caso de falha
+- [x] Criar `src/services/opencage.ts`
+- [x] Implementar `reverseGeocode(lat: number, lng: number): Promise<string>`
+- [x] Extrair nome da cidade de `results[0].components.city` ou fallback para `formatted`
+- [x] Lançar `Error` com mensagem descritiva em caso de falha
 
-### 5.5 — Dados mock OpenCage
+### 5.5 — Dados mock OpenCage ✅
 
-- [ ] Criar `src/__mocks__/data/geocode.ts` com resposta simulada para Rio de Janeiro
-- [ ] Adicionar handler MSW para `api.opencagedata.com` em `handlers.ts`
+- [x] Criar `src/__mocks__/data/geocode.ts` com resposta simulada para Rio de Janeiro
+- [x] Adicionar handler MSW para `api.opencagedata.com` em `handlers.ts`
 
-### 5.6 — Testes do serviço OpenCage
+### 5.6 — Testes do serviço OpenCage ✅
 
-- [ ] Criar `src/services/__tests__/opencage.test.ts`
-- [ ] Testar: retorna nome da cidade corretamente
-- [ ] Testar: lança erro em resposta de falha
+- [x] Criar `src/services/__tests__/opencage.test.ts`
+- [x] Testar: retorna nome da cidade corretamente
+- [x] Testar: lança erro em resposta de falha
 
-### 5.7 — Serviço Bing
+### 5.7 — Serviço Bing ✅
 
-- [ ] Criar `src/services/bing.ts`
-- [ ] Implementar `getBingDailyImage(): Promise<string>` retornando URL completa da imagem
-- [ ] Prefixar URL relativa com `https://www.bing.com`
+- [x] Criar `src/services/bing.ts`
+- [x] Implementar `getBingDailyImage(): Promise<string>` retornando URL completa da imagem
+- [x] Prefixar URL relativa com `https://www.bing.com`
 
-### 5.8 — Dados mock Bing
+### 5.8 — Dados mock Bing ✅
 
-- [ ] Criar `src/__mocks__/data/bing.ts` com resposta simulada
-- [ ] Adicionar handler MSW para `bing.com/HPImageArchive.aspx` em `handlers.ts`
+- [x] Criar `src/__mocks__/data/bing.ts` com resposta simulada
+- [x] Adicionar handler MSW para `bing.com/HPImageArchive.aspx` em `handlers.ts`
 
-### 5.9 — Testes do serviço Bing
+### 5.9 — Testes do serviço Bing ✅
 
-- [ ] Criar `src/services/__tests__/bing.test.ts`
-- [ ] Testar: retorna URL completa e válida
-- [ ] Testar: lança erro em resposta de falha
+- [x] Criar `src/services/__tests__/bing.test.ts`
+- [x] Testar: retorna URL completa e válida
+- [x] Testar: lança erro em resposta de falha
 
 ---
 
