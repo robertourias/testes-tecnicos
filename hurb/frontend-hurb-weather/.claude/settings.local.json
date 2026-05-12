@@ -8,7 +8,9 @@
       "Bash(cp ../temp-next/next-env.d.ts .)",
       "Bash(npm install *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(npm test *)",
+      "Bash(node -e \"const nextJest = require\\('next/jest'\\); const create = nextJest\\({ dir: './' }\\); create\\({}\\).then ? create\\({}\\).then\\(c => console.log\\(JSON.stringify\\(c.transformIgnorePatterns\\)\\)\\) : console.log\\(JSON.stringify\\(create\\({}\\).transformIgnorePatterns\\)\\)\")"
     ]
   }
 }
