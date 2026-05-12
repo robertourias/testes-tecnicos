@@ -14,10 +14,12 @@ interface WeatherState {
   loading: boolean;
   error: string | null;
   setLocation: (location: string) => void;
+  retryGeolocation: () => void;
 }
 
 export function useWeather(): WeatherState {
-  const { coordinates, error: geoError, loading: geoLoading } = useGeolocation();
+  const [geoRetryCount, setGeoRetryCount] = useState(0);
+  const { coordinates, error: geoError, loading: geoLoading } = useGeolocation(geoRetryCount);
 
   const [location, setLocationState] = useState<string | null>(null);
   const [forecast, setForecast] = useState<WeatherDay[]>([]);
@@ -73,10 +75,17 @@ export function useWeather(): WeatherState {
 
   const setLocation = useCallback(
     (loc: string) => {
-      fetchWeatherForLocation(loc);
+      if (!loc.trim()) return;
+      fetchWeatherForLocation(loc.trim());
     },
     [fetchWeatherForLocation]
   );
 
-  return { location, forecast, backgroundImage, loading, error, setLocation };
+  const retryGeolocation = useCallback(() => {
+    setError(null);
+    setLoading(true);
+    setGeoRetryCount((n) => n + 1);
+  }, []);
+
+  return { location, forecast, backgroundImage, loading, error, setLocation, retryGeolocation };
 }

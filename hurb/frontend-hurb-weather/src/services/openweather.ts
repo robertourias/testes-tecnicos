@@ -22,7 +22,11 @@ export async function getWeatherForecast(location: string): Promise<WeatherDay[]
     throw new Error('Chave de API do OpenWeather não configurada');
   }
 
-  const url = `${BASE_URL}?q=${encodeURIComponent(location)}&APPID=${API_KEY}&units=metric&lang=pt_br`;
+  if (!location.trim()) {
+    throw new Error('Nome da localidade não pode ser vazio');
+  }
+
+  const url = `${BASE_URL}?q=${encodeURIComponent(location.trim())}&APPID=${API_KEY}&units=metric&lang=pt_br`;
 
   const response = await fetch(url);
 

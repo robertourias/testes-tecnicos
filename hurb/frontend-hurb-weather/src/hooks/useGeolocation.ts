@@ -9,7 +9,7 @@ interface GeolocationState {
   loading: boolean;
 }
 
-export function useGeolocation(): GeolocationState {
+export function useGeolocation(retryCount = 0): GeolocationState {
   const [state, setState] = useState<GeolocationState>({
     coordinates: null,
     error: null,
@@ -17,8 +17,10 @@ export function useGeolocation(): GeolocationState {
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setState({ coordinates: null, error: null, loading: true });
+
     if (!navigator.geolocation) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setState({ coordinates: null, error: 'Geolocalização não suportada neste navegador', loading: false });
       return;
     }
@@ -44,9 +46,9 @@ export function useGeolocation(): GeolocationState {
 
         setState({ coordinates: null, error: message, loading: false });
       },
-      { timeout: 10000, maximumAge: 60000 }
+      { timeout: 10000, maximumAge: 0 }
     );
-  }, []);
+  }, [retryCount]); // retryCount como dependência permite re-disparar ao incrementar
 
   return state;
 }

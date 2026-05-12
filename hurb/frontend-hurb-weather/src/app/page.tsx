@@ -11,7 +11,7 @@ import { getGradientTheme } from '@/utils/gradient';
 import styles from './page.module.css';
 
 export default function Home(): React.JSX.Element {
-  const { location, forecast, backgroundImage, loading, error, setLocation } = useWeather();
+  const { location, forecast, backgroundImage, loading, error, setLocation, retryGeolocation } = useWeather();
   const { unit, toggleUnit } = useTemperatureUnit();
 
   const currentTemp = forecast[0]?.temp ?? null;
@@ -35,7 +35,7 @@ export default function Home(): React.JSX.Element {
         <section className={styles.content}>
           {loading && <LoadingState />}
           {!loading && error && !location && (
-            <ErrorMessage message={error} onRetry={() => setLocation('')} />
+            <ErrorMessage message={error} onRetry={retryGeolocation} />
           )}
           {!loading && !error && forecast.length > 0 && (
             <WeatherGrid forecast={forecast} unit={unit} onUnitToggle={toggleUnit} />
