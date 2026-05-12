@@ -69,8 +69,119 @@ Co-Authored-By: Claude Sonnet 4.5 <roberto.urias@gmail.com>"
 
 ### Em desenvolvimento
 
-- ETAPA 4 — Utilitários (funções puras para temperatura, gradiente, ícones, data)
 - ETAPA 5 — Serviços de API
+- ETAPA 6 — Custom Hooks
+
+---
+
+## [0.4.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Utilitários (ETAPA 4)
+
+**Conversão de Temperatura (`src/utils/temperature.ts`)**
+
+- `celsiusToFahrenheit(c: number): number` — Converte Celsius para Fahrenheit
+- `fahrenheitToCelsius(f: number): number` — Converte Fahrenheit para Celsius
+- `formatTemperature(temp: number, unit: TemperatureUnit): string` — Formata temperatura com unidade
+
+**Gradiente de Cor (`src/utils/gradient.ts`)**
+
+- `getGradientTheme(temp: number | null): GradientTheme` — Retorna tema baseado na temperatura:
+  - `null` → `'neutral'` (cinza)
+  - `< 15°C` → `'cold'` (azul)
+  - `15-35°C` → `'warm'` (amarelo)
+  - `> 35°C` → `'hot'` (vermelho)
+
+**Mapeamento de Ícones (`src/utils/icons.ts`)**
+
+- `getMeteoconIcon(weatherCode: number): string` — Mapeia códigos OpenWeather para ícones Meteocons
+- Cobertura completa de grupos:
+  - 2xx: Tempestade → `cloud-flash`
+  - 3xx: Garoa → `cloud-drizzle`
+  - 5xx: Chuva → `cloud-rain` / `cloud-hail`
+  - 6xx: Neve → `cloud-snow`
+  - 7xx: Atmosfera → `cloud-fog`
+  - 800: Céu limpo → `sun`
+  - 80x: Nuvens → `cloud-sun` / `cloud`
+
+**Formatação de Data (`src/utils/date.ts`)**
+
+- `formatWeatherDate(dateStr: string): string` — Formata datas com labels amigáveis:
+  - Dia atual → `'Hoje'`
+  - Próximo dia → `'Amanhã'`
+  - Dia seguinte → `'Depois de amanhã'`
+  - Outros → Data formatada (ex: "sexta-feira, 15 de mai.")
+
+**Export Centralizado (`src/utils/index.ts`)**
+
+- Re-export de todas as funções utilitárias
+
+**Testes Completos**
+
+- `src/utils/__tests__/temperature.test.ts` — 15 testes
+- `src/utils/__tests__/gradient.test.ts` — 7 testes
+- `src/utils/__tests__/icons.test.ts` — 18 testes
+- `src/utils/__tests__/date.test.ts` — 10 testes
+- **Total:** 50 testes, todos passando
+
+### 🔧 Configurado
+
+**TypeScript**
+
+- Path alias `@/*` atualizado para `./src/*`
+- Compatibilidade com imports relativos e absolutos
+
+### 📊 Métricas
+
+**Cobertura de Testes**
+
+- Utilitários: **93.33%** (meta: 90%+)
+- Statements: 93.33%
+- Branches: 97.67%
+- Functions: 85.71%
+- Lines: 93.33%
+
+**Testes**
+
+- 50 testes unitários
+- 100% dos testes passando
+- Tempo de execução: ~2s
+
+### ✅ Validado
+
+- ✅ Todas as funções utilitárias implementadas
+- ✅ Cobertura de testes acima de 90%
+- ✅ TypeScript sem erros
+- ✅ Prettier aplicado
+- ✅ Testes de conversão com valores extremos (-40°C, 0°C, 100°C)
+- ✅ Testes de gradiente com bordas (15°C, 35°C)
+- ✅ Testes de ícones com todos os grupos de clima
+- ✅ Testes de data com timezone handling
+
+### 📝 Notas Técnicas
+
+**Funções Puras**
+
+Todos os utilitários são funções puras (pure functions):
+
+- ✅ Sem efeitos colaterais
+- ✅ Mesmo input sempre gera mesmo output
+- ✅ Não dependem de estado externo
+- ✅ Fáceis de testar e debugar
+
+**Conversão de Temperatura**
+
+A fórmula de conversão usa precisão matemática:
+
+- C → F: `(C × 9/5) + 32`
+- F → C: `(F - 32) × 5/9`
+- Ponto de convergência: `-40°C = -40°F`
+
+**Mapeamento de Ícones**
+
+O mapeamento segue a documentação oficial da OpenWeather API, com fallback para `'sun'` em casos desconhecidos, garantindo que a UI nunca quebre por falta de ícone.
 
 ---
 

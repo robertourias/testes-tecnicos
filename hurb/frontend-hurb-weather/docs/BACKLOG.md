@@ -34,7 +34,7 @@
 | 1     | ✅     | v0.1.0 |
 | 2     | ✅     | v0.2.0 |
 | 3     | ✅     | v0.3.0 |
-| 4     | 🚧     | -      |
+| 4     | ✅     | v0.4.0 |
 | 5     | ⏳     | -      |
 | 6     | ⏳     | -      |
 | 7     | ⏳     | -      |
@@ -147,55 +147,55 @@
 
 ---
 
-## ETAPA 4 — Utilitários (funções puras)
+## ETAPA 4 — Utilitários (funções puras) ✅
 
-### 4.1 — Conversão de temperatura
+### 4.1 — Conversão de temperatura ✅
 
-- [ ] Criar `src/utils/temperature.ts`
-- [ ] Implementar `celsiusToFahrenheit(c: number): number`
-- [ ] Implementar `fahrenheitToCelsius(f: number): number`
-- [ ] Implementar `formatTemperature(temp: number, unit: TemperatureUnit): string`
+- [x] Criar `src/utils/temperature.ts`
+- [x] Implementar `celsiusToFahrenheit(c: number): number`
+- [x] Implementar `fahrenheitToCelsius(f: number): number`
+- [x] Implementar `formatTemperature(temp: number, unit: TemperatureUnit): string`
 
-### 4.2 — Testes de temperatura
+### 4.2 — Testes de temperatura ✅
 
-- [ ] Criar `src/utils/__tests__/temperature.test.ts`
-- [ ] Testar conversões com valores típicos e extremos (0°C, 100°C, -40°C)
-- [ ] Testar formatação com ambas as unidades
+- [x] Criar `src/utils/__tests__/temperature.test.ts`
+- [x] Testar conversões com valores típicos e extremos (0°C, 100°C, -40°C)
+- [x] Testar formatação com ambas as unidades
 
-### 4.3 — Gradiente de cor
+### 4.3 — Gradiente de cor ✅
 
-- [ ] Criar `src/utils/gradient.ts`
-- [ ] Implementar `getGradientTheme(temp: number | null): GradientTheme`
+- [x] Criar `src/utils/gradient.ts`
+- [x] Implementar `getGradientTheme(temp: number | null): GradientTheme`
   - `null` → `'neutral'` (cinza)
   - `< 15` → `'cold'` (azul)
   - `15–35` → `'warm'` (amarelo)
   - `> 35` → `'hot'` (vermelho)
 
-### 4.4 — Testes de gradiente
+### 4.4 — Testes de gradiente ✅
 
-- [ ] Criar `src/utils/__tests__/gradient.test.ts`
-- [ ] Testar todos os ranges incluindo bordas (15, 35) e null
+- [x] Criar `src/utils/__tests__/gradient.test.ts`
+- [x] Testar todos os ranges incluindo bordas (15, 35) e null
 
-### 4.5 — Mapeamento de ícones Meteocons
+### 4.5 — Mapeamento de ícones Meteocons ✅
 
-- [ ] Criar `src/utils/icons.ts`
-- [ ] Implementar `getMeteoconIcon(weatherCode: number): string` mapeando códigos OpenWeather → arquivo de ícone
-- [ ] Cobrir grupos: 2xx (tempestade), 3xx (garoa), 5xx (chuva), 6xx (neve), 7xx (atmosfera), 800 (limpo), 80x (nuvens)
+- [x] Criar `src/utils/icons.ts`
+- [x] Implementar `getMeteoconIcon(weatherCode: number): string` mapeando códigos OpenWeather → arquivo de ícone
+- [x] Cobrir grupos: 2xx (tempestade), 3xx (garoa), 5xx (chuva), 6xx (neve), 7xx (atmosfera), 800 (limpo), 80x (nuvens)
 
-### 4.6 — Testes de ícones
+### 4.6 — Testes de ícones ✅
 
-- [ ] Criar `src/utils/__tests__/icons.test.ts`
-- [ ] Testar pelo menos um código por grupo + fallback para código desconhecido
+- [x] Criar `src/utils/__tests__/icons.test.ts`
+- [x] Testar pelo menos um código por grupo + fallback para código desconhecido
 
-### 4.7 — Formatação de data
+### 4.7 — Formatação de data ✅
 
-- [ ] Criar `src/utils/date.ts`
-- [ ] Implementar `formatWeatherDate(dateStr: string): string` retornando label: `'Hoje'`, `'Amanhã'`, `'Depois de amanhã'`
+- [x] Criar `src/utils/date.ts`
+- [x] Implementar `formatWeatherDate(dateStr: string): string` retornando label: `'Hoje'`, `'Amanhã'`, `'Depois de amanhã'`
 
-### 4.8 — Testes de data
+### 4.8 — Testes de data ✅
 
-- [ ] Criar `src/utils/__tests__/date.test.ts`
-- [ ] Testar os 3 labels a partir de datas mockadas
+- [x] Criar `src/utils/__tests__/date.test.ts`
+- [x] Testar os 3 labels a partir de datas mockadas
 
 ---
 
