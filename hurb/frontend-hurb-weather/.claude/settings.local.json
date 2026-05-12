@@ -6,7 +6,9 @@
       "Bash(cp ../temp-next/tsconfig.json .)",
       "Bash(cp ../temp-next/next.config.ts .)",
       "Bash(cp ../temp-next/next-env.d.ts .)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }
