@@ -18,6 +18,7 @@ export function useGeolocation(): GeolocationState {
 
   useEffect(() => {
     if (!navigator.geolocation) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setState({ coordinates: null, error: 'Geolocalização não suportada neste navegador', loading: false });
       return;
     }

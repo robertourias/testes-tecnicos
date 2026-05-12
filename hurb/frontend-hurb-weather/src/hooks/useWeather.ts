@@ -50,6 +50,7 @@ export function useWeather(): WeatherState {
     if (geoLoading) return;
 
     if (geoError) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setError(geoError);
       setLoading(false);
       return;

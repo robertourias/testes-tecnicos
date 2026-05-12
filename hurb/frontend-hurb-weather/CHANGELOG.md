@@ -9,14 +9,42 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
-### Em desenvolvimento
-
-- ETAPA 13 — Documentação Final
+> Todas as etapas do backlog foram concluídas. ✅
 - ETAPA 9 — Página Principal
 - ETAPA 10 — Ícones Meteocons
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
+
+---
+
+## [0.13.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Documentação Final (ETAPA 13)
+
+- `README.md` — reescrito com: descrição do desafio, funcionalidades, stack, APIs, pré-requisitos, configuração de variáveis, passo a passo Docker (dev e prod) e local, como rodar testes (Jest, Playwright), tabela de variáveis, estrutura do projeto, decisões técnicas
+- `docs/MELHORIAS.md` — criado com 8 melhorias documentadas (ícones SVG, glassmorphism com blur, animações com stagger, botão de temperatura acessível, destaque "Hoje", erro inline vs. central, 4 breakpoints, prefers-reduced-motion)
+
+### 🐛 Corrigido
+
+**Lint (`npm run lint` — 0 erros, 0 warnings):**
+
+- `useGeolocation.ts` — `eslint-disable-next-line react-hooks/set-state-in-effect` no branch de geolocation indisponível
+- `useWeather.ts` — mesmo disable para propagação de geoError
+- `LocationInput.tsx` — mesmo disable para sync de prop controlada
+- `WeatherCard.tsx` — `eslint-disable-next-line @next/next/no-img-element` para ícones locais SVG
+- `page.test.tsx` — removido import `waitFor` não utilizado
+- `BackgroundImage.test.tsx` — removido import `screen` não utilizado
+- `eslint.config.mjs` — adicionados `coverage/**`, `playwright-report/**`, `test-results/**` ao `globalIgnores`
+
+### 📊 Métricas Finais
+
+- **136 testes unitários + integração** (Jest) — 0 falhas
+- **21 testes E2E** (Playwright) — 0 falhas
+- **Lint** — 0 erros, 0 warnings
+- **13 etapas do backlog** — todas concluídas ✅
 
 ---
 

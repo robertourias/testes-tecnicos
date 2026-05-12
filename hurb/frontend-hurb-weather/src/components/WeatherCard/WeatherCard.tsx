@@ -26,6 +26,7 @@ export function WeatherCard({
     <article className={`${styles.card} ${isToday ? styles.today : ''}`}>
       <h2 className={styles.dateLabel}>{dateLabel}</h2>
 
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`/icons/${iconName}.svg`}
         alt={day.description}

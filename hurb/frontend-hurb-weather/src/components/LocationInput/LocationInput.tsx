@@ -19,6 +19,7 @@ export function LocationInput({
   const [inputValue, setInputValue] = useState(value);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInputValue(value);
   }, [value]);
 

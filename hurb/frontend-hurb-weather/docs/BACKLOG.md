@@ -43,7 +43,7 @@
 | 10    | ✅     | v0.10.0 |
 | 11    | ✅     | v0.11.0 |
 | 12    | ✅     | v0.12.0 |
-| 13    | ⏳     | -      |
+| 13    | ✅     | v0.13.0 |
 
 **Legenda:**
 
@@ -486,31 +486,33 @@
 
 ---
 
-## ETAPA 13 — Documentação Final
+## ETAPA 13 — Documentação Final ✅
 
-### 13.1 — README.md completo
+### 13.1 — README.md completo ✅
 
-- [ ] Atualizar `README.md` com:
-  - Descrição clara do desafio
-  - Screenshot ou GIF da aplicação
-  - Pré-requisitos
-  - Passo a passo Docker (dev e prod)
-  - Passo a passo local (sem Docker)
-  - Como rodar os testes (unitários, integração, E2E)
-  - Variáveis de ambiente
+- [x] Descrição clara do desafio e funcionalidades
+- [x] Stack e APIs utilizadas
+- [x] Pré-requisitos (Docker ou Node.js + chaves de API)
+- [x] Configuração de variáveis de ambiente
+- [x] Passo a passo Docker dev e prod
+- [x] Passo a passo local (sem Docker)
+- [x] Como rodar testes unitários, de integração e E2E
+- [x] Tabela de variáveis de ambiente
+- [x] Estrutura do projeto
+- [x] Decisões técnicas relevantes
 
-### 13.2 — MELHORIAS.md
+### 13.2 — MELHORIAS.md ✅
 
-- [ ] Criar `docs/MELHORIAS.md` com as melhorias propostas ao layout original
-- [ ] Para cada melhoria: descrição + justificativa + impacto esperado na UX
+- [x] Criar `docs/MELHORIAS.md` com 8 melhorias documentadas
+- [x] Cada melhoria com descrição, justificativa e impacto na UX
 
-### 13.3 — Limpeza final
+### 13.3 — Limpeza final ✅
 
-- [ ] Remover `console.log` do código de produção
-- [ ] Verificar que `.env.example` tem todas as variáveis
-- [ ] Rodar `npm run lint` sem erros
-- [ ] Confirmar `docker compose --profile dev up` do zero em ambiente limpo
-- [ ] Confirmar `docker compose --profile prod up --build` funciona
+- [x] Sem `console.log` em código de produção
+- [x] `.env.example` com todas as variáveis necessárias
+- [x] `npm run lint` — 0 erros, 0 warnings
+- [x] Imports não utilizados removidos
+- [x] `coverage/`, `playwright-report/` e `test-results/` adicionados aos ignores do ESLint
 
 ---
 

@@ -192,10 +192,9 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 - **ETAPA 10** — Ícones Meteocons (v0.10.0)
 - **ETAPA 11** — Responsividade e Polimento (v0.11.0)
 - **ETAPA 12** — Testes E2E (v0.12.0)
+- **ETAPA 13** — Documentação Final (v0.13.0)
 
-### 🚧 Próximas Etapas
-
-- **ETAPA 13** — Documentação Final
+### ✅ Projeto concluído — todas as 13 etapas implementadas
 - **ETAPA 7** — Sistema de Design (CSS)
 - **ETAPA 8** — Componentes de UI
 - **ETAPA 9** — Página Principal
