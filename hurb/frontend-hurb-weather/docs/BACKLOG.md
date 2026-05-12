@@ -37,7 +37,7 @@
 | 4     | ✅     | v0.4.0 |
 | 5     | ✅     | v0.5.0 |
 | 6     | ✅     | v0.6.0 |
-| 7     | ⏳     | -      |
+| 7     | ✅     | v0.7.0 |
 | 8     | ⏳     | -      |
 | 9     | ⏳     | -      |
 | 10    | ⏳     | -      |
@@ -305,20 +305,20 @@
 
 ---
 
-## ETAPA 7 — Sistema de Design (CSS)
+## ETAPA 7 — Sistema de Design (CSS) ✅
 
-### 7.1 — Tokens CSS globais
+### 7.1 — Tokens CSS globais ✅
 
-- [ ] Criar/atualizar `src/styles/tokens.css` com:
+- [x] Criar/atualizar `src/styles/tokens.css` com:
   - Gradientes: `--gradient-cold`, `--gradient-warm`, `--gradient-hot`, `--gradient-neutral`
   - Tipografia: variáveis de tamanho e família (`Inter` via Google Fonts)
   - Espaçamento: `--space-1` a `--space-16`
   - Cores de texto e superfície
 
-### 7.2 — Reset e globals
+### 7.2 — Reset e globals ✅
 
-- [ ] Atualizar `src/app/globals.css` com reset CSS e importação dos tokens
-- [ ] Importar fonte `Inter` do Google Fonts no `layout.tsx`
+- [x] Atualizar `src/app/globals.css` com reset CSS e importação dos tokens
+- [x] Importar fonte `Inter` do Google Fonts no `layout.tsx`
 
 ---
 

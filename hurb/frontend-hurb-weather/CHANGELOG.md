@@ -11,13 +11,48 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### Em desenvolvimento
 
-- ETAPA 7 — Sistema de Design (CSS tokens globais, reset, tipografia Inter)
 - ETAPA 8 — Componentes de UI (BackgroundImage, LocationInput, WeatherCard, WeatherGrid, LoadingState, ErrorMessage)
 - ETAPA 9 — Página Principal
 - ETAPA 10 — Ícones Meteocons
 - ETAPA 11 — Responsividade e Polimento
 - ETAPA 12 — Testes E2E
 - ETAPA 13 — Documentação Final
+
+---
+
+## [0.7.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Sistema de Design (ETAPA 7)
+
+**Tokens CSS (`src/styles/tokens.css`)**
+
+- Gradientes de fundo por tema: `--gradient-cold`, `--gradient-warm`, `--gradient-hot`, `--gradient-neutral` (linear-gradient com hsla para sobreposição sobre imagem)
+- Tipografia: `--font-sans` referenciando `--font-inter` (variável CSS da fonte Next.js) com fallback completo; escala `--text-xs` a `--text-4xl`
+- Espaçamento: `--space-1` a `--space-16` em escala rem
+- Cores de texto e superfície: `--text-primary`, `--text-secondary`, `--surface-overlay`
+- Breakpoints de referência: `--bp-md: 768px`, `--bp-lg: 1024px`
+
+### 🔧 Configurado
+
+**`src/app/globals.css`**
+
+- Importação de `tokens.css` via `@import`
+- Reset CSS com `box-sizing: border-box` em `*`, `*::before`, `*::after`
+- `body` usando `var(--font-sans)` e `var(--text-base)` dos tokens
+- `img { display: block; max-width: 100% }` adicionado ao reset
+
+**`src/app/layout.tsx`**
+
+- Substituído Geist (boilerplate Next.js) por `Inter` do `next/font/google`
+- Fonte configurada com `variable: '--font-inter'`, `subsets: ['latin']`, `display: 'swap'`
+- `lang="pt-BR"` no elemento `<html>`
+- Metadata atualizada: título `'HURB Weather'`, descrição em português
+
+### 📊 Métricas
+
+- 85 testes passando (0 falhas) — nenhuma regressão
 
 ---
 
