@@ -94,3 +94,93 @@ npm run test
 # Testes E2E
 npm run test:e2e
 ```
+
+---
+
+## Manutenção da Documentação
+
+**IMPORTANTE:** A cada etapa concluída do backlog, atualizar obrigatoriamente:
+
+### 1. `docs/BACKLOG.md`
+
+- Marcar tarefas concluídas com `[x]`
+- Adicionar ✅ ao título da etapa concluída
+- Manter checkboxes claros e organizados
+
+**Exemplo:**
+
+```markdown
+## ETAPA X — Nome da Etapa ✅
+
+### X.1 — Subtarefa ✅
+
+- [x] Tarefa concluída
+- [x] Outra tarefa concluída
+```
+
+### 2. `CHANGELOG.md`
+
+- Criar nova seção de versão `[X.Y.Z]` com data
+- Mover itens de `[Unreleased]` para a nova versão
+- Documentar todas as adições, configurações e mudanças
+- Incluir métricas relevantes (tamanhos, performance, etc.)
+
+**Estrutura da entrada:**
+
+```markdown
+## [X.Y.Z] - YYYY-MM-DD
+
+### ✨ Adicionado
+
+- Funcionalidade X
+- Funcionalidade Y
+
+### 🔧 Configurado
+
+- Configuração A
+- Configuração B
+
+### 📊 Métricas
+
+- Métrica relevante
+
+### ✅ Validado
+
+- ✅ Teste validado
+```
+
+### 3. Commit
+
+Criar commit seguindo Conventional Commits:
+
+```bash
+git add docs/BACKLOG.md CHANGELOG.md [outros arquivos]
+git commit -m "feat/docs: [descrição da etapa]
+
+[Detalhes da implementação]
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+---
+
+## Estado Atual do Projeto
+
+### ✅ Etapas Concluídas
+
+- **ETAPA 1** — Setup do Projeto (v0.1.0)
+- **ETAPA 2** — Docker (v0.2.0)
+
+### 🚧 Próximas Etapas
+
+- **ETAPA 3** — Tipos TypeScript
+- **ETAPA 4** — Utilitários (funções puras)
+- **ETAPA 5** — Serviços (chamadas de API)
+- **ETAPA 6** — Custom Hooks
+- **ETAPA 7** — Sistema de Design (CSS)
+- **ETAPA 8** — Componentes de UI
+- **ETAPA 9** — Página Principal
+- **ETAPA 10** — Ícones Meteocons
+- **ETAPA 11** — Responsividade e Polimento
+- **ETAPA 12** — Testes E2E
+- **ETAPA 13** — Documentação Final

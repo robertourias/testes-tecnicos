@@ -5,6 +5,54 @@
 
 ---
 
+## ⚠️ INSTRUÇÕES DE USO
+
+**Ao concluir cada etapa:**
+
+1. ✅ Marcar todas as tarefas concluídas com `[x]`
+2. ✅ Adicionar emoji ✅ ao título da etapa concluída
+3. 📝 Atualizar `CHANGELOG.md` com nova versão e detalhes
+4. 💾 Commitar mudanças com mensagem descritiva
+
+**Formato de marcação:**
+
+```markdown
+## ETAPA X — Nome da Etapa ✅
+
+### X.Y — Subtarefa ✅
+
+- [x] Tarefa concluída
+- [x] Outra tarefa
+```
+
+---
+
+## 📊 Progresso Geral
+
+| Etapa | Status | Versão |
+| ----- | ------ | ------ |
+| 1     | ✅     | v0.1.0 |
+| 2     | ✅     | v0.2.0 |
+| 3     | 🚧     | -      |
+| 4     | ⏳     | -      |
+| 5     | ⏳     | -      |
+| 6     | ⏳     | -      |
+| 7     | ⏳     | -      |
+| 8     | ⏳     | -      |
+| 9     | ⏳     | -      |
+| 10    | ⏳     | -      |
+| 11    | ⏳     | -      |
+| 12    | ⏳     | -      |
+| 13    | ⏳     | -      |
+
+**Legenda:**
+
+- ✅ Concluído
+- 🚧 Em andamento
+- ⏳ Aguardando
+
+---
+
 ## ETAPA 1 — Setup do Projeto ✅
 
 ### 1.1 — Inicializar Next.js ✅

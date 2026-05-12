@@ -7,6 +7,64 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## ⚠️ INSTRUÇÕES DE USO
+
+**A cada etapa concluída do backlog, seguir este fluxo:**
+
+### 1. Criar Nova Versão
+
+```markdown
+## [X.Y.Z] - YYYY-MM-DD
+
+### ✨ Adicionado
+
+[Liste tudo que foi adicionado]
+
+### 🔧 Configurado
+
+[Liste configurações feitas]
+
+### 📊 Métricas
+
+[Inclua dados relevantes: tamanhos, performance, etc.]
+
+### ✅ Validado
+
+[Liste testes e validações executadas]
+```
+
+### 2. Atualizar [Unreleased]
+
+Mover items concluídos de `[Unreleased]` para a nova versão e atualizar lista de pendências.
+
+### 3. Versionamento
+
+- **MAJOR** (X.0.0): Mudanças incompatíveis
+- **MINOR** (0.X.0): Novas funcionalidades compatíveis (cada ETAPA completa)
+- **PATCH** (0.0.X): Correções de bugs
+
+**Exemplo de versionamento deste projeto:**
+
+- ETAPA 1 (Setup) → v0.1.0
+- ETAPA 2 (Docker) → v0.2.0
+- ETAPA 3 (Tipos) → v0.3.0
+- ETAPA 4 (Utilitários) → v0.4.0
+- ...
+- ETAPA 13 (Documentação Final) → v1.0.0
+
+### 4. Commit
+
+```bash
+git add CHANGELOG.md docs/BACKLOG.md [outros arquivos]
+git commit -m "feat/docs: [descrição]
+
+[Detalhes]
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+---
+
 ## [Unreleased]
 
 ### Em desenvolvimento
