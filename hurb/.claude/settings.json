@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(docker compose *)",
+      "Bash(npx *)",
+      "Read(**)",
+      "Write(src/**)",
+      "Write(public/**)",
+      "Write(__tests__/**)",
+      "Write(.env.example)",
+      "Write(Dockerfile)",
+      "Write(docker-compose.yml)",
+      "Write(jest.config.*)",
+      "Write(playwright.config.*)",
+      "Write(next.config.*)",
+      "Write(tsconfig.json)",
+      "Write(package.json)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Write(.env.local)",
+      "Write(.env)"
+    ]
+  },
+  "model": "claude-sonnet-4-5"
+}
