@@ -114,12 +114,12 @@ O `Dockerfile` utiliza build multi-stage para otimizar tamanho e segurança:
 
 ### Stages
 
-| Stage        | Uso                         | Tamanho |
-| ------------ | --------------------------- | ------- |
-| `base`       | Camada compartilhada        | ~150 MB |
-| `development`| Desenvolvimento local       | ~600 MB |
-| `builder`    | Build de produção           | ~700 MB |
-| `production` | Runtime otimizado           | ~200 MB |
+| Stage         | Uso                   | Tamanho |
+| ------------- | --------------------- | ------- |
+| `base`        | Camada compartilhada  | ~150 MB |
+| `development` | Desenvolvimento local | ~600 MB |
+| `builder`     | Build de produção     | ~700 MB |
+| `production`  | Runtime otimizado     | ~200 MB |
 
 ---
 
@@ -129,9 +129,9 @@ No perfil `dev`, os seguintes volumes são montados:
 
 ```yaml
 volumes:
-  - .:/app                # Código fonte (hot reload)
-  - /app/node_modules     # Isola node_modules do host
-  - /app/.next            # Isola cache do Next.js
+  - .:/app # Código fonte (hot reload)
+  - /app/node_modules # Isola node_modules do host
+  - /app/.next # Isola cache do Next.js
 ```
 
 Isso permite:
@@ -154,7 +154,7 @@ Para mudar a porta, edite o `docker-compose.yml`:
 
 ```yaml
 ports:
-  - '8080:3000'  # Mapeia porta 8080 do host → 3000 do container
+  - '8080:3000' # Mapeia porta 8080 do host → 3000 do container
 ```
 
 ---

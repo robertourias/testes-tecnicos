@@ -55,12 +55,12 @@ Mover items concluídos de `[Unreleased]` para a nova versão e atualizar lista 
 ### 4. Commit
 
 ```bash
-git add CHANGELOG.md docs/BACKLOG.md [outros arquivos]
+git add docs/CHANGELOG.md docs/BACKLOG.md [outros arquivos]
 git commit -m "feat/docs: [descrição]
 
 [Detalhes]
 
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+Co-Authored-By: Claude Sonnet 4.5 <roberto.urias@gmail.com>"
 ```
 
 ---
@@ -69,8 +69,76 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 
 ### Em desenvolvimento
 
-- ETAPA 3 — Tipos TypeScript (Weather, Geocode, UI)
 - ETAPA 4 — Utilitários (funções puras para temperatura, gradiente, ícones, data)
+- ETAPA 5 — Serviços de API
+
+---
+
+## [0.3.0] - 2026-05-12
+
+### ✨ Adicionado
+
+#### Tipos TypeScript (ETAPA 3)
+
+**Weather Types (`src/types/weather.ts`)**
+
+- `OpenWeatherResponse` — Interface completa da resposta da API OpenWeather
+- `OpenWeatherForecastItem` — Tipo para item individual de previsão
+- `WeatherDay` — Tipo normalizado com dados essenciais:
+  - `date: string` — Data da previsão
+  - `temp: number` — Temperatura em Celsius
+  - `feelsLike: number` — Sensação térmica
+  - `description: string` — Descrição do tempo
+  - `icon: string` — Código do ícone meteorológico
+
+**Geocode Types (`src/types/geocode.ts`)**
+
+- `OpenCageResponse` — Interface completa da resposta da API OpenCage
+- `OpenCageResult` — Tipo para resultado individual de geocodificação
+- `Coordinates` — Tipo simplificado para coordenadas:
+  - `lat: number` — Latitude
+  - `lng: number` — Longitude
+
+**UI Types (`src/types/ui.ts`)**
+
+- `TemperatureUnit` — Union type: `'C' | 'F'`
+- `GradientTheme` — Union type: `'cold' | 'warm' | 'hot' | 'neutral'`
+
+**Export Centralizado (`src/types/index.ts`)**
+
+- Re-export de todos os tipos para facilitar imports
+- Estrutura organizada por domínio (weather, geocode, ui)
+
+### 🔧 Configurado
+
+**TypeScript**
+
+- Tipos completos para todas as APIs externas
+- Strict typing habilitado para toda a aplicação
+- Path alias `@/types` funcionando
+
+### ✅ Validado
+
+- ✅ Compilação TypeScript sem erros (`tsc --noEmit`)
+- ✅ Tipos alinhados com documentação oficial das APIs
+- ✅ Export centralizado funcionando
+- ✅ Formatação Prettier aplicada
+
+### 📝 Notas Técnicas
+
+**Estrutura de Tipos**
+
+Os tipos foram organizados em três camadas:
+
+1. **Raw API Types** — Tipos que refletem exatamente a resposta das APIs externas
+2. **Normalized Types** — Tipos simplificados para uso interno da aplicação
+3. **UI Types** — Tipos para estado e preferências de interface
+
+Essa separação permite:
+
+- ✅ Type safety completo nas chamadas de API
+- ✅ Flexibilidade para transformar dados sem quebrar contratos
+- ✅ Facilita manutenção quando APIs mudam
 
 ---
 

@@ -42,5 +42,3 @@ O layout deve ser seguido, mas você pode sugerir melhorias. Descreva essas melh
 - **Segurança**: Existe alguma vulnerabilidade clara?
 - **Cobertura de testes** Qualidade e cobertura dos testes (não espero cobertura completa).
 - **UX**: A interface é de fácil uso e auto-explicativa? As rotas/métodos da API são intuitivos?
-
-## Insumo

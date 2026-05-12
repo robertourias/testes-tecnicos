@@ -33,8 +33,8 @@
 | ----- | ------ | ------ |
 | 1     | ✅     | v0.1.0 |
 | 2     | ✅     | v0.2.0 |
-| 3     | 🚧     | -      |
-| 4     | ⏳     | -      |
+| 3     | ✅     | v0.3.0 |
+| 4     | 🚧     | -      |
 | 5     | ⏳     | -      |
 | 6     | ⏳     | -      |
 | 7     | ⏳     | -      |
@@ -128,22 +128,22 @@
 
 ---
 
-## ETAPA 3 — Tipos TypeScript
+## ETAPA 3 — Tipos TypeScript ✅
 
-### 3.1 — Tipos de Weather
+### 3.1 — Tipos de Weather ✅
 
-- [ ] Criar `src/types/weather.ts` com `OpenWeatherResponse` (resposta bruta da API)
-- [ ] Criar tipo `WeatherDay` normalizado: `{ date, temp, feelsLike, description, icon }`
+- [x] Criar `src/types/weather.ts` com `OpenWeatherResponse` (resposta bruta da API)
+- [x] Criar tipo `WeatherDay` normalizado: `{ date, temp, feelsLike, description, icon }`
 
-### 3.2 — Tipos de Geocode
+### 3.2 — Tipos de Geocode ✅
 
-- [ ] Criar `src/types/geocode.ts` com `OpenCageResponse` (resposta bruta)
-- [ ] Criar tipo `Coordinates`: `{ lat: number; lng: number }`
+- [x] Criar `src/types/geocode.ts` com `OpenCageResponse` (resposta bruta)
+- [x] Criar tipo `Coordinates`: `{ lat: number; lng: number }`
 
-### 3.3 — Tipos de UI
+### 3.3 — Tipos de UI ✅
 
-- [ ] Criar `src/types/ui.ts` com `TemperatureUnit = 'C' | 'F'`
-- [ ] Criar tipo `GradientTheme = 'cold' | 'warm' | 'hot' | 'neutral'`
+- [x] Criar `src/types/ui.ts` com `TemperatureUnit = 'C' | 'F'`
+- [x] Criar tipo `GradientTheme = 'cold' | 'warm' | 'hot' | 'neutral'`
 
 ---
 
