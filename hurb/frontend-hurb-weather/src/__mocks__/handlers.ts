@@ -14,8 +14,8 @@ export const handlers: Array<ReturnType<typeof http.get | typeof http.post>> = [
     return HttpResponse.json(mockGeocodeResponse);
   }),
 
-  // Bing Daily Image API
-  http.get('https://www.bing.com/HPImageArchive.aspx', () => {
+  // Bing Daily Image — via proxy local (a chamada direta ao Bing é bloqueada por CORS)
+  http.get('http://localhost/api/bing-image', () => {
     return HttpResponse.json(mockBingResponse);
   }),
 ];

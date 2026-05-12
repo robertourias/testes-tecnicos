@@ -88,7 +88,8 @@ export async function setupMocks(page: Page, tempCelsius = 25): Promise<void> {
     route.fulfill({ json: buildWeatherResponse(tempCelsius) })
   );
 
-  await page.route('**/www.bing.com/HPImageArchive**', (route) =>
+  // Mock do proxy local — page.route intercepta requests do browser, não do servidor
+  await page.route('**/api/bing-image**', (route) =>
     route.fulfill({ json: bingResponse })
   );
 }
