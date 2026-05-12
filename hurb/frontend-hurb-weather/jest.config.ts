@@ -12,7 +12,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  transformIgnorePatterns: ['node_modules/(?!(@mswjs|msw)/)'],
+  transformIgnorePatterns: ['node_modules/(?!(@mswjs|msw|rettime)/)'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',

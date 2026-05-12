@@ -170,13 +170,14 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 
 - **ETAPA 1** — Setup do Projeto (v0.1.0)
 - **ETAPA 2** — Docker (v0.2.0)
+- **ETAPA 3** — Tipos TypeScript (v0.3.0)
+- **ETAPA 4** — Utilitários (v0.4.0)
+- **ETAPA 5** — Serviços de API (v0.5.0)
+- **ETAPA 6** — Custom Hooks (v0.6.0)
 
 ### 🚧 Próximas Etapas
 
-- **ETAPA 3** — Tipos TypeScript
-- **ETAPA 4** — Utilitários (funções puras)
-- **ETAPA 5** — Serviços (chamadas de API)
-- **ETAPA 6** — Custom Hooks
+- **ETAPA 7** — Sistema de Design (CSS)
 - **ETAPA 7** — Sistema de Design (CSS)
 - **ETAPA 8** — Componentes de UI
 - **ETAPA 9** — Página Principal

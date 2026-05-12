@@ -36,7 +36,7 @@
 | 3     | ✅     | v0.3.0 |
 | 4     | ✅     | v0.4.0 |
 | 5     | ✅     | v0.5.0 |
-| 6     | ⏳     | -      |
+| 6     | ✅     | v0.6.0 |
 | 7     | ⏳     | -      |
 | 8     | ⏳     | -      |
 | 9     | ⏳     | -      |
@@ -257,51 +257,51 @@
 
 ---
 
-## ETAPA 6 — Custom Hooks
+## ETAPA 6 — Custom Hooks ✅
 
-### 6.1 — useGeolocation
+### 6.1 — useGeolocation ✅
 
-- [ ] Criar `src/hooks/useGeolocation.ts`
-- [ ] Usar `navigator.geolocation.getCurrentPosition`
-- [ ] Retornar `{ coordinates, error, loading }`
-- [ ] Tratar casos: permissão negada, timeout, indisponível
+- [x] Criar `src/hooks/useGeolocation.ts`
+- [x] Usar `navigator.geolocation.getCurrentPosition`
+- [x] Retornar `{ coordinates, error, loading }`
+- [x] Tratar casos: permissão negada, timeout, indisponível
 
-### 6.2 — Testes de useGeolocation
+### 6.2 — Testes de useGeolocation ✅
 
-- [ ] Criar `src/hooks/__tests__/useGeolocation.test.tsx`
-- [ ] Mock de `navigator.geolocation`
-- [ ] Testar: loading inicial → coordenadas retornadas
-- [ ] Testar: loading inicial → erro de permissão
+- [x] Criar `src/hooks/__tests__/useGeolocation.test.tsx`
+- [x] Mock de `navigator.geolocation`
+- [x] Testar: loading inicial → coordenadas retornadas
+- [x] Testar: loading inicial → erro de permissão
 
-### 6.3 — useTemperatureUnit
+### 6.3 — useTemperatureUnit ✅
 
-- [ ] Criar `src/hooks/useTemperatureUnit.ts`
-- [ ] Retornar `{ unit, toggleUnit }` (estado inicial: `'C'`)
-- [ ] `toggleUnit` alterna entre `'C'` e `'F'`
+- [x] Criar `src/hooks/useTemperatureUnit.ts`
+- [x] Retornar `{ unit, toggleUnit }` (estado inicial: `'C'`)
+- [x] `toggleUnit` alterna entre `'C'` e `'F'`
 
-### 6.4 — Testes de useTemperatureUnit
+### 6.4 — Testes de useTemperatureUnit ✅
 
-- [ ] Criar `src/hooks/__tests__/useTemperatureUnit.test.tsx`
-- [ ] Testar: estado inicial é `'C'`
-- [ ] Testar: toggle alterna para `'F'`
-- [ ] Testar: toggle volta para `'C'`
+- [x] Criar `src/hooks/__tests__/useTemperatureUnit.test.tsx`
+- [x] Testar: estado inicial é `'C'`
+- [x] Testar: toggle alterna para `'F'`
+- [x] Testar: toggle volta para `'C'`
 
-### 6.5 — useWeather
+### 6.5 — useWeather ✅
 
-- [ ] Criar `src/hooks/useWeather.ts`
-- [ ] Orquestrar: `useGeolocation` → `reverseGeocode` → `getWeatherForecast`
-- [ ] Retornar `{ location, forecast, backgroundImage, loading, error, setLocation }`
-- [ ] `setLocation` permite trocar localidade manualmente (rebusca a previsão)
-- [ ] Buscar `getBingDailyImage` em paralelo com o fluxo de previsão
+- [x] Criar `src/hooks/useWeather.ts`
+- [x] Orquestrar: `useGeolocation` → `reverseGeocode` → `getWeatherForecast`
+- [x] Retornar `{ location, forecast, backgroundImage, loading, error, setLocation }`
+- [x] `setLocation` permite trocar localidade manualmente (rebusca a previsão)
+- [x] Buscar `getBingDailyImage` em paralelo com o fluxo de previsão
 
-### 6.6 — Testes de useWeather
+### 6.6 — Testes de useWeather ✅
 
-- [ ] Criar `src/hooks/__tests__/useWeather.test.tsx`
-- [ ] Usar MSW para mockar todas as APIs
-- [ ] Mock de `navigator.geolocation`
-- [ ] Testar: fluxo completo — geoloc → geocode → previsão → loading false
-- [ ] Testar: `setLocation` com nova cidade atualiza `forecast`
-- [ ] Testar: erro de geolocalização expõe `error` no retorno
+- [x] Criar `src/hooks/__tests__/useWeather.test.tsx`
+- [x] Mock das funções de serviço via `jest.mock`
+- [x] Mock de `navigator.geolocation`
+- [x] Testar: fluxo completo — geoloc → geocode → previsão → loading false
+- [x] Testar: `setLocation` com nova cidade atualiza `forecast`
+- [x] Testar: erro de geolocalização expõe `error` no retorno
 
 ---
 
