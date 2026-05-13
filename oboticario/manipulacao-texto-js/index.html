@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manipulador de Texto</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel" aria-labelledby="page-title">
+        <div class="heading">
+          <p class="eyebrow">Comandos de texto</p>
+          <h1 id="page-title">Manipulador de Texto</h1>
+        </div>
+
+        <form id="command-form" class="form">
+          <label class="field" for="text-input">
+            <span>Texto</span>
+            <textarea
+              id="text-input"
+              name="text"
+              rows="4"
+              placeholder="Digite o texto que será manipulado"
+            >Hello Grupo Boticario</textarea>
+          </label>
+
+          <label class="field" for="commands-input">
+            <span>Comandos</span>
+            <input
+              id="commands-input"
+              name="commands"
+              type="text"
+              value="rh6lrg6lrb2h"
+              placeholder="Ex.: rh6lrg6lrb2h"
+              autocomplete="off"
+            />
+          </label>
+
+          <button class="primary-button" type="submit">Aplicar comandos</button>
+        </form>
+
+        <div class="examples" aria-label="Exemplos">
+          <button type="button" data-command="hhlllllhihhi">Exemplo 1</button>
+          <button type="button" data-command="rhllllllrgllllllrb">Exemplo 2</button>
+          <button type="button" data-command="rh6lrg6lrb2h">Exemplo 3</button>
+          <button type="button" data-command="9999lrO">Exemplo 4</button>
+          <button type="button" data-command="21rA">Exemplo 5</button>
+        </div>
+      </section>
+
+      <section class="result-panel" aria-live="polite">
+        <span class="result-label">Resultado</span>
+        <output id="result-output" class="result-text"></output>
+        <div class="cursor-row">
+          <span>Cursor</span>
+          <strong id="cursor-output">0</strong>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

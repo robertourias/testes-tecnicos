@@ -1,0 +1,206 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #eef2f7;
+  color: #172033;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(231, 241, 255, 0.86), rgba(248, 250, 252, 0.92)),
+    #eef2f7;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.app {
+  width: min(960px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 48px 0;
+  display: grid;
+  align-content: center;
+  gap: 20px;
+}
+
+.panel,
+.result-panel {
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  box-shadow: 0 18px 45px rgba(31, 42, 68, 0.08);
+}
+
+.panel {
+  padding: 32px;
+}
+
+.heading {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #536177;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  line-height: 1;
+}
+
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  color: #313d52;
+  font-weight: 700;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #172033;
+  background: #f8fafc;
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 112px;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: #1f6feb;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(31, 111, 235, 0.13);
+}
+
+.primary-button {
+  width: fit-content;
+  min-height: 46px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 20px;
+  color: #ffffff;
+  background: #1f6feb;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background: #185abc;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.examples button {
+  min-height: 36px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0 12px;
+  color: #344054;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.examples button:hover {
+  border-color: #1f6feb;
+  color: #1f6feb;
+}
+
+.result-panel {
+  padding: 28px 32px;
+}
+
+.result-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #536177;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.result-text {
+  display: block;
+  min-height: 54px;
+  overflow-wrap: anywhere;
+  color: #0f172a;
+  font-size: clamp(1.6rem, 5vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.cursor-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  color: #536177;
+  font-weight: 700;
+}
+
+.cursor-row strong {
+  min-width: 44px;
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: #ffffff;
+  background: #172033;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .app {
+    width: min(100% - 24px, 960px);
+    padding: 24px 0;
+  }
+
+  .panel,
+  .result-panel {
+    padding: 22px;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+
+  .examples button {
+    flex: 1 1 96px;
+  }
+}
