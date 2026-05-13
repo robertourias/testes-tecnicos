@@ -1,54 +1,39 @@
 import type { Page } from '@playwright/test';
 
-/** Gera resposta simulada do OpenWeather com datas relativas a hoje */
-function buildWeatherResponse(tempCelsius = 25) {
+/** Gera resposta simulada da One Call API 3.0 com datas relativas a hoje */
+function buildWeatherResponse(tempDay = 25) {
   const now = new Date();
 
-  const days = [0, 1, 2].map((offset) => {
+  const daily = [0, 1, 2, 3, 4, 5, 6, 7].map((offset) => {
     const d = new Date(now);
     d.setDate(d.getDate() + offset);
     d.setHours(12, 0, 0, 0);
-    const dtTxt = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} 12:00:00`;
+
     return {
       dt: Math.floor(d.getTime() / 1000),
-      main: {
-        temp: tempCelsius,
-        feels_like: tempCelsius + 2,
-        temp_min: tempCelsius - 2,
-        temp_max: tempCelsius + 2,
-        pressure: 1013,
-        sea_level: 1013,
-        grnd_level: 1011,
-        humidity: 65,
-        temp_kf: 0,
-      },
+      temp: { day: tempDay, min: tempDay - 4, max: tempDay + 4, night: tempDay - 6, eve: tempDay - 2, morn: tempDay - 3 },
+      feels_like: { day: tempDay + 2, night: tempDay - 4, eve: tempDay, morn: tempDay - 1 },
+      pressure: 1013,
+      humidity: 65,
       weather: [{ id: 800, main: 'Clear', description: 'céu limpo', icon: '01d' }],
-      clouds: { all: 0 },
-      wind: { speed: 4, deg: 120, gust: 6 },
-      visibility: 10000,
+      clouds: 0,
       pop: 0,
-      sys: { pod: 'd' },
-      dt_txt: dtTxt,
+      uvi: 5,
     };
   });
 
   return {
-    cod: '200',
-    message: 0,
-    cnt: days.length,
-    list: days,
-    city: {
-      id: 3451190,
-      name: 'Rio de Janeiro',
-      coord: { lat: -22.9068, lon: -43.1729 },
-      country: 'BR',
-      population: 6320446,
-      timezone: -10800,
-      sunrise: 1652519400,
-      sunset: 1652561400,
-    },
+    lat: -22.9068,
+    lon: -43.1729,
+    timezone: 'America/Sao_Paulo',
+    timezone_offset: -10800,
+    daily,
   };
 }
+
+const geocodingResponse = [
+  { name: 'Rio de Janeiro', lat: -22.9068, lon: -43.1729, country: 'BR' },
+];
 
 const geocodeResponse = {
   results: [
@@ -76,19 +61,26 @@ const bingResponse = {
 };
 
 /** Configura geolocalização e mocks de API no contexto Playwright */
-export async function setupMocks(page: Page, tempCelsius = 25): Promise<void> {
+export async function setupMocks(page: Page, tempDay = 25): Promise<void> {
   await page.context().grantPermissions(['geolocation']);
   await page.context().setGeolocation({ latitude: -22.9068, longitude: -43.1729 });
 
+  // One Call API 3.0 — previsão por coordenadas
+  await page.route('**/api.openweathermap.org/data/3.0/onecall**', (route) =>
+    route.fulfill({ json: buildWeatherResponse(tempDay) })
+  );
+
+  // OpenWeather Geocoding — cidade → lat/lon (para busca manual)
+  await page.route('**/api.openweathermap.org/geo/1.0/direct**', (route) =>
+    route.fulfill({ json: geocodingResponse })
+  );
+
+  // OpenCage — lat/lon → nome da cidade (reverse geocode)
   await page.route('**/api.opencagedata.com/**', (route) =>
     route.fulfill({ json: geocodeResponse })
   );
 
-  await page.route('**/api.openweathermap.org/**', (route) =>
-    route.fulfill({ json: buildWeatherResponse(tempCelsius) })
-  );
-
-  // Mock do proxy local — page.route intercepta requests do browser, não do servidor
+  // Bing — via proxy local
   await page.route('**/api/bing-image**', (route) =>
     route.fulfill({ json: bingResponse })
   );

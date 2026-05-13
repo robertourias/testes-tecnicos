@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useGeolocation } from './useGeolocation';
 import { reverseGeocode } from '@/services/opencage';
-import { getWeatherForecast } from '@/services/openweather';
+import { getWeatherForecast, getWeatherForecastByCoords } from '@/services/openweather';
 import { getBingDailyImage } from '@/services/bing';
 import type { WeatherDay } from '@/types/weather';
 
@@ -27,6 +27,7 @@ export function useWeather(): WeatherState {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Busca por nome de cidade (manual): geocode → One Call API
   const fetchWeatherForLocation = useCallback(async (loc: string) => {
     setLoading(true);
     setError(null);
@@ -47,7 +48,8 @@ export function useWeather(): WeatherState {
     }
   }, []);
 
-  // Resolução automática via geolocalização
+  // Resolução automática via geolocalização:
+  // reverseGeocode + getWeatherForecastByCoords + getBingDailyImage em paralelo
   useEffect(() => {
     if (geoLoading) return;
 
@@ -60,18 +62,26 @@ export function useWeather(): WeatherState {
 
     if (!coordinates) return;
 
-    const resolveLocation = async () => {
+    const resolveByCoords = async () => {
       try {
-        const cityName = await reverseGeocode(coordinates.lat, coordinates.lng);
-        await fetchWeatherForLocation(cityName);
+        const [cityName, weatherData, imageUrl] = await Promise.all([
+          reverseGeocode(coordinates.lat, coordinates.lng),
+          getWeatherForecastByCoords(coordinates.lat, coordinates.lng),
+          getBingDailyImage(),
+        ]);
+
+        setForecast(weatherData);
+        setBackgroundImage(imageUrl);
+        setLocationState(cityName);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erro ao identificar localização');
+        setError(err instanceof Error ? err.message : 'Erro ao carregar previsão do tempo');
+      } finally {
         setLoading(false);
       }
     };
 
-    resolveLocation();
-  }, [coordinates, geoError, geoLoading, fetchWeatherForLocation]);
+    resolveByCoords();
+  }, [coordinates, geoError, geoLoading]);
 
   const setLocation = useCallback(
     (loc: string) => {

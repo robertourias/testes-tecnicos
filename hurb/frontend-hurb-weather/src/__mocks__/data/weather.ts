@@ -1,709 +1,355 @@
 /**
- * Mock de dados da API OpenWeather para testes
- * Simula resposta de previsão de 5 dias para Rio de Janeiro
+ * Mock de dados da OpenWeather One Call API 3.0 para testes
+ * Simula resposta de previsão diária para Rio de Janeiro (8 dias)
  */
-import type { OpenWeatherResponse } from '@/types/weather';
+import type { OneCallResponse, GeocodingResult } from '@/types/weather';
 
-export const mockWeatherResponse: OpenWeatherResponse = {
-  cod: '200',
-  message: 0,
-  cnt: 40,
-  list: [
-    // Hoje - 12:00
+// Timestamp base: 2024-06-10 12:00:00 UTC (data fixa para testes determinísticos)
+const BASE_TS = 1718013600;
+
+// Um dia em segundos
+const ONE_DAY = 86400;
+
+export const mockWeatherResponse: OneCallResponse = {
+  lat: -22.9068,
+  lon: -43.1729,
+  timezone: 'America/Sao_Paulo',
+  timezone_offset: -10800,
+  daily: [
+    // Dia 0 — hoje
     {
-      dt: Date.now() / 1000,
-      main: {
-        temp: 28.5,
-        feels_like: 30.2,
-        temp_min: 27.8,
-        temp_max: 28.5,
-        pressure: 1013,
-        sea_level: 1013,
-        grnd_level: 1011,
-        humidity: 65,
-        temp_kf: 0.7,
+      dt: BASE_TS,
+      sunrise: BASE_TS - 21600,
+      sunset: BASE_TS + 21600,
+      moonrise: BASE_TS + 3600,
+      moonset: BASE_TS - 3600,
+      moon_phase: 0.25,
+      summary: 'Poucas nuvens durante o dia',
+      temp: {
+        day: 28.5,
+        min: 22.3,
+        max: 30.1,
+        night: 23.0,
+        eve: 26.5,
+        morn: 22.8,
       },
+      feels_like: {
+        day: 30.2,
+        night: 24.0,
+        eve: 27.5,
+        morn: 23.5,
+      },
+      pressure: 1013,
+      humidity: 65,
+      dew_point: 21.5,
+      wind_speed: 4.5,
+      wind_deg: 120,
+      wind_gust: 6.2,
       weather: [
         {
           id: 801,
           main: 'Clouds',
-          description: 'Poucas nuvens',
+          description: 'poucas nuvens',
           icon: '02d',
         },
       ],
-      clouds: {
-        all: 20,
-      },
-      wind: {
-        speed: 4.5,
-        deg: 120,
-        gust: 6.2,
-      },
-      visibility: 10000,
+      clouds: 20,
       pop: 0.1,
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now()).toISOString().replace('T', ' ').substring(0, 19),
+      uvi: 8.5,
     },
-    // Hoje - 15:00
+    // Dia 1 — amanhã
     {
-      dt: Date.now() / 1000 + 3 * 3600,
-      main: {
-        temp: 29.2,
-        feels_like: 31.5,
-        temp_min: 28.5,
-        temp_max: 29.2,
-        pressure: 1012,
-        sea_level: 1012,
-        grnd_level: 1010,
-        humidity: 62,
-        temp_kf: 0.7,
+      dt: BASE_TS + ONE_DAY,
+      sunrise: BASE_TS + ONE_DAY - 21600,
+      sunset: BASE_TS + ONE_DAY + 21600,
+      moonrise: BASE_TS + ONE_DAY + 4200,
+      moonset: BASE_TS + ONE_DAY - 2400,
+      moon_phase: 0.3,
+      summary: 'Chuva leve durante a tarde',
+      temp: {
+        day: 27.5,
+        min: 21.8,
+        max: 29.0,
+        night: 22.5,
+        eve: 25.0,
+        morn: 22.0,
       },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01d',
-        },
-      ],
-      clouds: {
-        all: 5,
+      feels_like: {
+        day: 29.0,
+        night: 23.0,
+        eve: 26.0,
+        morn: 22.5,
       },
-      wind: {
-        speed: 5.1,
-        deg: 125,
-        gust: 7.0,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 3 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Hoje - 18:00
-    {
-      dt: Date.now() / 1000 + 6 * 3600,
-      main: {
-        temp: 27.8,
-        feels_like: 29.0,
-        temp_min: 27.0,
-        temp_max: 27.8,
-        pressure: 1012,
-        sea_level: 1012,
-        grnd_level: 1010,
-        humidity: 68,
-        temp_kf: 0.8,
-      },
-      weather: [
-        {
-          id: 801,
-          main: 'Clouds',
-          description: 'Poucas nuvens',
-          icon: '02n',
-        },
-      ],
-      clouds: {
-        all: 15,
-      },
-      wind: {
-        speed: 4.2,
-        deg: 115,
-        gust: 5.8,
-      },
-      visibility: 10000,
-      pop: 0.05,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 6 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Hoje - 21:00
-    {
-      dt: Date.now() / 1000 + 9 * 3600,
-      main: {
-        temp: 25.5,
-        feels_like: 26.2,
-        temp_min: 25.0,
-        temp_max: 25.5,
-        pressure: 1013,
-        sea_level: 1013,
-        grnd_level: 1011,
-        humidity: 72,
-        temp_kf: 0.5,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01n',
-        },
-      ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 3.8,
-        deg: 110,
-        gust: 4.5,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 9 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Amanhã - 00:00
-    {
-      dt: Date.now() / 1000 + 12 * 3600,
-      main: {
-        temp: 24.2,
-        feels_like: 24.8,
-        temp_min: 24.0,
-        temp_max: 24.2,
-        pressure: 1014,
-        sea_level: 1014,
-        grnd_level: 1012,
-        humidity: 75,
-        temp_kf: 0.2,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01n',
-        },
-      ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 3.2,
-        deg: 105,
-        gust: 4.0,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 12 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Amanhã - 03:00
-    {
-      dt: Date.now() / 1000 + 15 * 3600,
-      main: {
-        temp: 23.5,
-        feels_like: 24.0,
-        temp_min: 23.5,
-        temp_max: 23.5,
-        pressure: 1014,
-        sea_level: 1014,
-        grnd_level: 1012,
-        humidity: 78,
-        temp_kf: 0,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01n',
-        },
-      ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 3.0,
-        deg: 100,
-        gust: 3.5,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 15 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Amanhã - 06:00
-    {
-      dt: Date.now() / 1000 + 18 * 3600,
-      main: {
-        temp: 23.0,
-        feels_like: 23.5,
-        temp_min: 23.0,
-        temp_max: 23.0,
-        pressure: 1015,
-        sea_level: 1015,
-        grnd_level: 1013,
-        humidity: 80,
-        temp_kf: 0,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01d',
-        },
-      ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 2.8,
-        deg: 95,
-        gust: 3.2,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 18 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Amanhã - 09:00
-    {
-      dt: Date.now() / 1000 + 21 * 3600,
-      main: {
-        temp: 26.8,
-        feels_like: 28.0,
-        temp_min: 26.8,
-        temp_max: 26.8,
-        pressure: 1015,
-        sea_level: 1015,
-        grnd_level: 1013,
-        humidity: 70,
-        temp_kf: 0,
-      },
+      pressure: 1014,
+      humidity: 68,
+      dew_point: 22.0,
+      wind_speed: 4.0,
+      wind_deg: 115,
+      wind_gust: 5.5,
       weather: [
         {
           id: 500,
           main: 'Rain',
-          description: 'Chuva leve',
+          description: 'chuva leve',
           icon: '10d',
         },
       ],
-      clouds: {
-        all: 40,
-      },
-      wind: {
-        speed: 3.5,
-        deg: 110,
-        gust: 4.8,
-      },
-      visibility: 10000,
-      pop: 0.35,
-      rain: {
-        '3h': 0.5,
-      },
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 21 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Amanhã - 12:00
-    {
-      dt: Date.now() / 1000 + 24 * 3600,
-      main: {
-        temp: 27.5,
-        feels_like: 29.0,
-        temp_min: 27.5,
-        temp_max: 27.5,
-        pressure: 1014,
-        sea_level: 1014,
-        grnd_level: 1012,
-        humidity: 68,
-        temp_kf: 0,
-      },
-      weather: [
-        {
-          id: 500,
-          main: 'Rain',
-          description: 'Chuva leve',
-          icon: '10d',
-        },
-      ],
-      clouds: {
-        all: 50,
-      },
-      wind: {
-        speed: 4.0,
-        deg: 115,
-        gust: 5.5,
-      },
-      visibility: 10000,
+      clouds: 50,
       pop: 0.45,
-      rain: {
-        '3h': 1.2,
-      },
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 24 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
+      rain: 1.2,
+      uvi: 6.0,
     },
-    // Amanhã - 15:00
+    // Dia 2 — depois de amanhã
     {
-      dt: Date.now() / 1000 + 27 * 3600,
-      main: {
-        temp: 28.0,
-        feels_like: 29.8,
-        temp_min: 28.0,
-        temp_max: 28.0,
-        pressure: 1013,
-        sea_level: 1013,
-        grnd_level: 1011,
-        humidity: 66,
-        temp_kf: 0,
+      dt: BASE_TS + 2 * ONE_DAY,
+      sunrise: BASE_TS + 2 * ONE_DAY - 21600,
+      sunset: BASE_TS + 2 * ONE_DAY + 21600,
+      moonrise: BASE_TS + 2 * ONE_DAY + 4800,
+      moonset: BASE_TS + 2 * ONE_DAY - 1800,
+      moon_phase: 0.35,
+      summary: 'Céu limpo o dia todo',
+      temp: {
+        day: 30.0,
+        min: 23.5,
+        max: 32.5,
+        night: 24.5,
+        eve: 28.0,
+        morn: 23.8,
       },
+      feels_like: {
+        day: 32.5,
+        night: 25.5,
+        eve: 29.5,
+        morn: 24.5,
+      },
+      pressure: 1015,
+      humidity: 60,
+      dew_point: 21.8,
+      wind_speed: 4.0,
+      wind_deg: 110,
+      wind_gust: 5.5,
       weather: [
         {
-          id: 801,
-          main: 'Clouds',
-          description: 'Poucas nuvens',
-          icon: '02d',
+          id: 800,
+          main: 'Clear',
+          description: 'céu limpo',
+          icon: '01d',
         },
       ],
-      clouds: {
-        all: 25,
-      },
-      wind: {
-        speed: 4.5,
-        deg: 120,
-        gust: 6.0,
-      },
-      visibility: 10000,
-      pop: 0.2,
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 27 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
+      clouds: 0,
+      pop: 0,
+      uvi: 10.0,
     },
-    // Amanhã - 18:00
+    // Dia 3
     {
-      dt: Date.now() / 1000 + 30 * 3600,
-      main: {
-        temp: 26.5,
-        feels_like: 27.5,
-        temp_min: 26.5,
-        temp_max: 26.5,
-        pressure: 1013,
-        sea_level: 1013,
-        grnd_level: 1011,
-        humidity: 70,
-        temp_kf: 0,
+      dt: BASE_TS + 3 * ONE_DAY,
+      sunrise: BASE_TS + 3 * ONE_DAY - 21600,
+      sunset: BASE_TS + 3 * ONE_DAY + 21600,
+      moonrise: BASE_TS + 3 * ONE_DAY + 5400,
+      moonset: BASE_TS + 3 * ONE_DAY - 1200,
+      moon_phase: 0.4,
+      temp: {
+        day: 26.0,
+        min: 20.5,
+        max: 28.0,
+        night: 21.0,
+        eve: 24.5,
+        morn: 21.2,
       },
+      feels_like: {
+        day: 27.0,
+        night: 22.0,
+        eve: 25.0,
+        morn: 21.8,
+      },
+      pressure: 1016,
+      humidity: 70,
+      dew_point: 20.5,
+      wind_speed: 3.5,
+      wind_deg: 100,
       weather: [
         {
           id: 802,
           main: 'Clouds',
-          description: 'Nuvens dispersas',
-          icon: '03n',
+          description: 'nuvens dispersas',
+          icon: '03d',
         },
       ],
-      clouds: {
-        all: 30,
-      },
-      wind: {
-        speed: 4.0,
-        deg: 115,
-        gust: 5.2,
-      },
-      visibility: 10000,
-      pop: 0.15,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 30 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
+      clouds: 35,
+      pop: 0.2,
+      uvi: 7.5,
     },
-    // Amanhã - 21:00
+    // Dia 4
     {
-      dt: Date.now() / 1000 + 33 * 3600,
-      main: {
-        temp: 25.0,
-        feels_like: 25.8,
-        temp_min: 25.0,
-        temp_max: 25.0,
-        pressure: 1014,
-        sea_level: 1014,
-        grnd_level: 1012,
-        humidity: 73,
-        temp_kf: 0,
+      dt: BASE_TS + 4 * ONE_DAY,
+      sunrise: BASE_TS + 4 * ONE_DAY - 21600,
+      sunset: BASE_TS + 4 * ONE_DAY + 21600,
+      moonrise: BASE_TS + 4 * ONE_DAY + 6000,
+      moonset: BASE_TS + 4 * ONE_DAY - 600,
+      moon_phase: 0.45,
+      temp: {
+        day: 25.0,
+        min: 19.8,
+        max: 27.0,
+        night: 20.5,
+        eve: 23.5,
+        morn: 20.2,
       },
+      feels_like: {
+        day: 26.0,
+        night: 21.5,
+        eve: 24.0,
+        morn: 21.0,
+      },
+      pressure: 1015,
+      humidity: 72,
+      dew_point: 20.0,
+      wind_speed: 3.8,
+      wind_deg: 105,
+      weather: [
+        {
+          id: 803,
+          main: 'Clouds',
+          description: 'nuvens quebradas',
+          icon: '04d',
+        },
+      ],
+      clouds: 60,
+      pop: 0.3,
+      uvi: 5.5,
+    },
+    // Dia 5
+    {
+      dt: BASE_TS + 5 * ONE_DAY,
+      sunrise: BASE_TS + 5 * ONE_DAY - 21600,
+      sunset: BASE_TS + 5 * ONE_DAY + 21600,
+      moonrise: BASE_TS + 5 * ONE_DAY + 6600,
+      moonset: BASE_TS + 5 * ONE_DAY,
+      moon_phase: 0.5,
+      temp: {
+        day: 24.0,
+        min: 19.0,
+        max: 26.0,
+        night: 19.8,
+        eve: 22.5,
+        morn: 19.5,
+      },
+      feels_like: {
+        day: 25.0,
+        night: 20.5,
+        eve: 23.0,
+        morn: 20.0,
+      },
+      pressure: 1014,
+      humidity: 75,
+      dew_point: 19.8,
+      wind_speed: 4.2,
+      wind_deg: 130,
+      weather: [
+        {
+          id: 501,
+          main: 'Rain',
+          description: 'chuva moderada',
+          icon: '10d',
+        },
+      ],
+      clouds: 75,
+      pop: 0.7,
+      rain: 3.5,
+      uvi: 3.0,
+    },
+    // Dia 6
+    {
+      dt: BASE_TS + 6 * ONE_DAY,
+      sunrise: BASE_TS + 6 * ONE_DAY - 21600,
+      sunset: BASE_TS + 6 * ONE_DAY + 21600,
+      moonrise: BASE_TS + 6 * ONE_DAY + 7200,
+      moonset: BASE_TS + 6 * ONE_DAY + 600,
+      moon_phase: 0.55,
+      temp: {
+        day: 27.0,
+        min: 21.5,
+        max: 29.5,
+        night: 22.0,
+        eve: 25.5,
+        morn: 21.8,
+      },
+      feels_like: {
+        day: 28.5,
+        night: 23.0,
+        eve: 26.5,
+        morn: 22.5,
+      },
+      pressure: 1013,
+      humidity: 67,
+      dew_point: 21.0,
+      wind_speed: 3.5,
+      wind_deg: 115,
       weather: [
         {
           id: 800,
           main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01n',
-        },
-      ],
-      clouds: {
-        all: 10,
-      },
-      wind: {
-        speed: 3.5,
-        deg: 110,
-        gust: 4.5,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 33 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Depois de amanhã - 00:00
-    {
-      dt: Date.now() / 1000 + 36 * 3600,
-      main: {
-        temp: 24.0,
-        feels_like: 24.5,
-        temp_min: 24.0,
-        temp_max: 24.0,
-        pressure: 1014,
-        sea_level: 1014,
-        grnd_level: 1012,
-        humidity: 76,
-        temp_kf: 0,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01n',
-        },
-      ],
-      clouds: {
-        all: 5,
-      },
-      wind: {
-        speed: 3.0,
-        deg: 105,
-        gust: 3.8,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 36 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Depois de amanhã - 03:00
-    {
-      dt: Date.now() / 1000 + 39 * 3600,
-      main: {
-        temp: 23.2,
-        feels_like: 23.8,
-        temp_min: 23.2,
-        temp_max: 23.2,
-        pressure: 1014,
-        sea_level: 1014,
-        grnd_level: 1012,
-        humidity: 79,
-        temp_kf: 0,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01n',
-        },
-      ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 2.8,
-        deg: 100,
-        gust: 3.2,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'n',
-      },
-      dt_txt: new Date(Date.now() + 39 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Depois de amanhã - 06:00
-    {
-      dt: Date.now() / 1000 + 42 * 3600,
-      main: {
-        temp: 22.8,
-        feels_like: 23.2,
-        temp_min: 22.8,
-        temp_max: 22.8,
-        pressure: 1015,
-        sea_level: 1015,
-        grnd_level: 1013,
-        humidity: 81,
-        temp_kf: 0,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
+          description: 'céu limpo',
           icon: '01d',
         },
       ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 2.5,
-        deg: 95,
-        gust: 3.0,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 42 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
+      clouds: 5,
+      pop: 0.05,
+      uvi: 9.0,
     },
-    // Depois de amanhã - 09:00
+    // Dia 7
     {
-      dt: Date.now() / 1000 + 45 * 3600,
-      main: {
-        temp: 27.0,
-        feels_like: 28.2,
-        temp_min: 27.0,
-        temp_max: 27.0,
-        pressure: 1015,
-        sea_level: 1015,
-        grnd_level: 1013,
-        humidity: 68,
-        temp_kf: 0,
+      dt: BASE_TS + 7 * ONE_DAY,
+      sunrise: BASE_TS + 7 * ONE_DAY - 21600,
+      sunset: BASE_TS + 7 * ONE_DAY + 21600,
+      moonrise: BASE_TS + 7 * ONE_DAY + 7800,
+      moonset: BASE_TS + 7 * ONE_DAY + 1200,
+      moon_phase: 0.6,
+      temp: {
+        day: 29.0,
+        min: 22.8,
+        max: 31.0,
+        night: 23.5,
+        eve: 27.0,
+        morn: 23.0,
       },
+      feels_like: {
+        day: 31.0,
+        night: 24.5,
+        eve: 28.5,
+        morn: 23.8,
+      },
+      pressure: 1012,
+      humidity: 62,
+      dew_point: 21.5,
+      wind_speed: 4.8,
+      wind_deg: 125,
+      wind_gust: 6.5,
       weather: [
         {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01d',
+          id: 801,
+          main: 'Clouds',
+          description: 'poucas nuvens',
+          icon: '02d',
         },
       ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 3.2,
-        deg: 100,
-        gust: 4.2,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 45 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-    },
-    // Depois de amanhã - 12:00
-    {
-      dt: Date.now() / 1000 + 48 * 3600,
-      main: {
-        temp: 30.0,
-        feels_like: 32.5,
-        temp_min: 30.0,
-        temp_max: 30.0,
-        pressure: 1014,
-        sea_level: 1014,
-        grnd_level: 1012,
-        humidity: 60,
-        temp_kf: 0,
-      },
-      weather: [
-        {
-          id: 800,
-          main: 'Clear',
-          description: 'Céu limpo',
-          icon: '01d',
-        },
-      ],
-      clouds: {
-        all: 0,
-      },
-      wind: {
-        speed: 4.0,
-        deg: 110,
-        gust: 5.5,
-      },
-      visibility: 10000,
-      pop: 0,
-      sys: {
-        pod: 'd',
-      },
-      dt_txt: new Date(Date.now() + 48 * 3600 * 1000)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
+      clouds: 15,
+      pop: 0.1,
+      uvi: 9.5,
     },
   ],
-  city: {
-    id: 3451190,
-    name: 'Rio de Janeiro',
-    coord: {
-      lat: -22.9068,
-      lon: -43.1729,
-    },
-    country: 'BR',
-    population: 6320446,
-    timezone: -10800,
-    sunrise: 1652519400,
-    sunset: 1652561400,
-  },
 };
+
+export const mockGeocodingResponse: GeocodingResult[] = [
+  {
+    name: 'Rio de Janeiro',
+    lat: -22.9068,
+    lon: -43.1729,
+    country: 'BR',
+    state: 'Rio de Janeiro',
+    local_names: {
+      en: 'Rio de Janeiro',
+      pt: 'Rio de Janeiro',
+    },
+  },
+];

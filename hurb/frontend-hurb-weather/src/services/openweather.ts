@@ -1,102 +1,151 @@
 /**
- * Serviço de integração com OpenWeather API
- * Documentação: https://openweathermap.org/forecast5
+ * Serviço de integração com OpenWeather APIs
+ *
+ * - One Call API 3.0: previsão diária por coordenadas
+ * - Geocoding API: conversão de nome de cidade em lat/lon
+ *
+ * Documentação One Call 3.0: https://openweathermap.org/api/one-call-3
+ * Documentação Geocoding:    https://openweathermap.org/api/geocoding-api
  */
-import type { OpenWeatherResponse, WeatherDay } from '@/types/weather';
+import type { OneCallResponse, GeocodingResult, WeatherDay } from '@/types/weather';
 
-const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast';
-const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_APPID;
+const ONE_CALL_URL = 'https://api.openweathermap.org/data/3.0/onecall';
+const GEO_URL = 'http://api.openweathermap.org/geo/1.0/direct';
+const API_KEY = process.env.OPENWEATHER_APPID ?? process.env.NEXT_PUBLIC_OPENWEATHER_APPID;
+
+// Quantidade de dias de previsão retornados pela função pública
+const FORECAST_DAYS = 3;
 
 /**
- * Busca previsão do tempo para uma localidade
+ * Converte nome de cidade em coordenadas geográficas
+ * usando a Geocoding API do OpenWeather
  *
- * Retorna array de 3 dias (hoje, amanhã, depois de amanhã)
- * com dados normalizados de temperatura, descrição e ícone
- *
- * @param location - Nome da cidade (ex: "Rio de Janeiro", "São Paulo,BR")
- * @returns Promise com array de 3 WeatherDay
- * @throws Error em caso de falha na requisição
+ * @param cityName - Nome da cidade (ex: "Rio de Janeiro")
+ * @returns Primeiro resultado de geocodificação encontrado
+ * @throws Error se a cidade não for encontrada ou a chave for inválida
  */
-export async function getWeatherForecast(location: string): Promise<WeatherDay[]> {
+export async function geocodeCity(cityName: string): Promise<GeocodingResult> {
   if (!API_KEY) {
     throw new Error('Chave de API do OpenWeather não configurada');
   }
 
-  if (!location.trim()) {
+  if (!cityName.trim()) {
     throw new Error('Nome da localidade não pode ser vazio');
   }
 
-  const url = `${BASE_URL}?q=${encodeURIComponent(location.trim())}&APPID=${API_KEY}&units=metric&lang=pt_br`;
-
+  const url = `${GEO_URL}?q=${encodeURIComponent(cityName.trim())}&limit=1&appid=${API_KEY}`;
   const response = await fetch(url);
 
   if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error(`Localidade "${location}" não encontrada`);
-    }
     if (response.status === 401) {
       throw new Error('Chave de API do OpenWeather inválida ou expirada');
     }
-    throw new Error(`Falha ao buscar previsão para "${location}" (HTTP ${response.status})`);
+    throw new Error(
+      `Falha ao geocodificar "${cityName}" (HTTP ${response.status})`
+    );
   }
 
-  const data: OpenWeatherResponse = await response.json();
+  const data: GeocodingResult[] = await response.json();
 
-  // Normalizar dados: agrupar por dia e extrair previsão do meio-dia (~12h)
-  return extractThreeDayForecast(data);
+  if (data.length === 0) {
+    throw new Error(`Localidade "${cityName}" não encontrada`);
+  }
+
+  return data[0];
 }
 
 /**
- * Extrai previsão de 3 dias da resposta da API
+ * Busca previsão do tempo pelos próximos dias usando coordenadas geográficas
+ * via One Call API 3.0 do OpenWeather
  *
- * A API retorna previsões de 3 em 3 horas (40 itens para 5 dias)
- * Agrupa por dia e pega a previsão mais próxima do meio-dia de cada dia
+ * Retorna os primeiros FORECAST_DAYS (3) dias do array `daily`
  *
- * @param data - Resposta bruta da API OpenWeather
- * @returns Array de 3 WeatherDay normalizados
+ * @param lat - Latitude
+ * @param lon - Longitude
+ * @returns Array de WeatherDay normalizados
+ * @throws Error em caso de falha na requisição
  */
-function extractThreeDayForecast(data: OpenWeatherResponse): WeatherDay[] {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  // Agrupar itens por dia
-  const itemsByDay = new Map<string, typeof data.list>();
-
-  for (const item of data.list) {
-    const itemDate = new Date(item.dt * 1000);
-    // Usar componentes locais para evitar shift de timezone ao parsear depois
-    const y = itemDate.getFullYear();
-    const m = String(itemDate.getMonth() + 1).padStart(2, '0');
-    const d = String(itemDate.getDate()).padStart(2, '0');
-    const dayKey = `${y}-${m}-${d} 12:00:00`;
-
-    if (!itemsByDay.has(dayKey)) {
-      itemsByDay.set(dayKey, []);
-    }
-    itemsByDay.get(dayKey)!.push(item);
+export async function getWeatherForecastByCoords(
+  lat: number,
+  lon: number
+): Promise<WeatherDay[]> {
+  if (!API_KEY) {
+    throw new Error('Chave de API do OpenWeather não configurada');
   }
 
-  // Pegar os 3 primeiros dias disponíveis
-  const days = Array.from(itemsByDay.entries())
-    .sort(([dateA], [dateB]) => dateA.localeCompare(dateB))
-    .slice(0, 3);
-
-  return days.map(([date, items]) => {
-    // Buscar item mais próximo do meio-dia (12:00)
-    const noonItem = items.reduce((closest, current) => {
-      const closestHour = new Date(closest.dt * 1000).getHours();
-      const currentHour = new Date(current.dt * 1000).getHours();
-      const closestDiff = Math.abs(closestHour - 12);
-      const currentDiff = Math.abs(currentHour - 12);
-      return currentDiff < closestDiff ? current : closest;
-    });
-
-    return {
-      date,
-      temp: Math.round(noonItem.main.temp),
-      feelsLike: Math.round(noonItem.main.feels_like),
-      description: noonItem.weather[0]?.description || 'Sem informações',
-      icon: noonItem.weather[0]?.icon || '01d',
-    };
+  const params = new URLSearchParams({
+    lat: String(lat),
+    lon: String(lon),
+    appid: API_KEY,
+    units: 'metric',
+    lang: 'pt_br',
+    exclude: 'minutely,hourly,alerts',
   });
+
+  const response = await fetch(`${ONE_CALL_URL}?${params.toString()}`);
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Chave de API do OpenWeather inválida ou expirada');
+    }
+    throw new Error(
+      `Falha ao buscar previsão para coordenadas (${lat}, ${lon}) (HTTP ${response.status})`
+    );
+  }
+
+  const data: OneCallResponse = await response.json();
+
+  return parseDailyForecast(data.daily);
+}
+
+/**
+ * Busca previsão do tempo por nome de cidade
+ * Orquestra: geocodeCity → getWeatherForecastByCoords
+ *
+ * Interface pública de alto nível mantida para compatibilidade
+ *
+ * @param location - Nome da cidade (ex: "Rio de Janeiro")
+ * @returns Array de WeatherDay normalizados
+ * @throws Error em caso de falha em qualquer etapa
+ */
+export async function getWeatherForecast(location: string): Promise<WeatherDay[]> {
+  const geoResult = await geocodeCity(location);
+  return getWeatherForecastByCoords(geoResult.lat, geoResult.lon);
+}
+
+/**
+ * Converte array de OneCallDailyItem para WeatherDay normalizado
+ * Usa componentes locais do timestamp para evitar shift de timezone
+ *
+ * @param daily - Array bruto de dias da One Call API
+ * @returns Array de WeatherDay (limitado a FORECAST_DAYS)
+ */
+function parseDailyForecast(
+  daily: OneCallResponse['daily']
+): WeatherDay[] {
+  return daily.slice(0, FORECAST_DAYS).map(parseDailyItem);
+}
+
+/**
+ * Converte um OneCallDailyItem em WeatherDay normalizado
+ *
+ * @param item - Item diário da One Call API
+ * @returns WeatherDay com data formatada e temperaturas arredondadas
+ */
+function parseDailyItem(item: OneCallResponse['daily'][number]): WeatherDay {
+  const date = new Date(item.dt * 1000);
+
+  // Usar componentes locais para evitar shift de timezone (compatível com formatWeatherDate)
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  const dateStr = `${y}-${m}-${d} 12:00:00`;
+
+  return {
+    date: dateStr,
+    temp: Math.round(item.temp.day),
+    feelsLike: Math.round(item.feels_like.day),
+    description: item.weather[0]?.description ?? 'Sem informações',
+    icon: item.weather[0]?.icon ?? '01d',
+  };
 }
