@@ -10,11 +10,32 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [Unreleased]
 
 > Todas as etapas do backlog foram concluídas. ✅
-- ETAPA 9 — Página Principal
-- ETAPA 10 — Ícones Meteocons
-- ETAPA 11 — Responsividade e Polimento
-- ETAPA 12 — Testes E2E
-- ETAPA 13 — Documentação Final
+
+---
+
+## [0.14.0] - 2026-05-12
+
+### ✨ Adicionado
+
+- `src/app/api/bing-image/route.ts` — Route Handler proxy para a API do Bing; resolve erro de CORS (Bing não envia `Access-Control-Allow-Origin`); usa `next: { revalidate: 3600 }` para cache de 1h no servidor
+- `getWeatherForecastByCoords(lat, lon)` em `openweather.ts` — consulta `/data/2.5/forecast?lat=&lon=` sem precisar converter coordenadas em nome de cidade; usado pelo `useWeather` no fluxo de geolocalização
+- `retryGeolocation()` exposto por `useWeather` — incrementa `geoRetryCount` que é dependência do `useEffect` em `useGeolocation`, re-disparando a geolocalização sem recarregar a página
+- `useGeolocation` aceita `retryCount` como parâmetro de dependência do effect
+
+### 🐛 Corrigido
+
+- `getWeatherForecast` e `setLocation` em `useWeather`: guard contra string vazia antes de fazer o fetch (evitava `q=` vazio que causava HTTP 401)
+- `ErrorMessage` retry: era `() => setLocation('')` (gerava 401 com `q=`); corrigido para `retryGeolocation()`
+- `services/bing.ts`: atualizado para chamar `/api/bing-image` (proxy) em vez da URL do Bing diretamente
+
+### 🔄 Atualizado
+
+- `useWeather` fluxo de geolocalização: `reverseGeocode + getWeatherForecastByCoords + getBingDailyImage` em paralelo via `Promise.all` (antes era sequencial: geocode → byName → forecast)
+
+### 📊 Métricas
+
+- 154 testes Jest + 21 E2E Playwright — 0 falhas
+- Lint: 0 erros, 0 warnings
 
 ---
 

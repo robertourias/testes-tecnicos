@@ -32,11 +32,13 @@ A aplicação exibe a previsão para os próximos 3 dias (hoje, amanhã e depois
 
 ### APIs
 
-| API | Uso |
-|-----|-----|
-| [OpenWeather](https://openweathermap.org/forecast5) | Previsão de 5 dias (extrai 3) |
-| [OpenCage](https://opencagedata.com/api) | Reverse geocode (lat/lng → nome da cidade) |
-| [Bing Image](https://www.bing.com/HPImageArchive.aspx) | Imagem de fundo do dia |
+| API | Endpoint | Uso |
+|-----|----------|-----|
+| [OpenWeather Forecast 2.5](https://openweathermap.org/forecast5) | `/data/2.5/forecast?q=` ou `?lat=&lon=` | Previsão de 5 dias (extrai 3) |
+| [OpenCage](https://opencagedata.com/api) | `/geocode/v1/json?q={lat},{lng}` | Reverse geocode → nome da cidade |
+| [Bing Image](https://www.bing.com/HPImageArchive.aspx) | `/api/bing-image` *(proxy local)* | Imagem de fundo do dia |
+
+> **Bing:** chamadas diretas do browser são bloqueadas por CORS. A aplicação usa uma Route Handler do Next.js (`/api/bing-image`) como proxy server-side com cache de 1h.
 
 ---
 
@@ -172,13 +174,15 @@ src/
 │   ├── WeatherCard/        → Card de previsão de um dia
 │   └── WeatherGrid/        → Grid responsivo com 3 WeatherCards
 ├── hooks/                  → Custom hooks
-│   ├── useGeolocation.ts   → Wrapper para navigator.geolocation
+│   ├── useGeolocation.ts   → Wrapper para navigator.geolocation (com retry)
 │   ├── useTemperatureUnit.ts → Toggle °C / °F
-│   └── useWeather.ts       → Orquestrador: geo → geocode → previsão
+│   └── useWeather.ts       → Orquestrador: geo → (reverseGeocode + byCoords + Bing) em paralelo
 ├── services/               → Chamadas às APIs externas
-│   ├── bing.ts             → Imagem diária do Bing
-│   ├── opencage.ts         → Reverse geocode
-│   └── openweather.ts      → Previsão do tempo
+│   ├── bing.ts             → Imagem diária do Bing (via proxy /api/bing-image)
+│   ├── opencage.ts         → Reverse geocode (lat/lon → nome da cidade)
+│   └── openweather.ts      → getWeatherForecast(city) + getWeatherForecastByCoords(lat, lon)
+├── app/api/
+│   └── bing-image/route.ts → Proxy server-side para a API do Bing (CORS)
 ├── styles/
 │   └── tokens.css          → CSS Variables: gradientes, tipografia, espaçamento
 ├── types/                  → Interfaces TypeScript
@@ -204,6 +208,15 @@ Os testes de serviços usam `jest.fn()` diretamente (sem MSW) pois os serviços 
 
 ### Timezone no `extractThreeDayForecast`
 A API retorna timestamps Unix. O agrupamento por dia usa componentes locais da data (`.getFullYear()`, `.getDate()`) em vez de `.toISOString()` para evitar que fusos negativos (ex: UTC-3) causem shift de data.
+
+### Bing via proxy server-side
+A API do Bing não inclui `Access-Control-Allow-Origin`, bloqueando chamadas diretas do browser. A Route Handler `/api/bing-image` faz a requisição no servidor e repassa o resultado, com `next: { revalidate: 3600 }` para cache de 1h.
+
+### Retry de geolocalização
+O hook `useWeather` expõe `retryGeolocation()` que incrementa um contador de tentativas. Como `useGeolocation` recebe esse contador como dependência do `useEffect`, incrementá-lo re-dispara a chamada à API de geolocalização sem recarregar a página.
+
+### Duas funções de previsão
+`getWeatherForecast(cityName)` usa `q=` para busca por nome (caso de busca manual). `getWeatherForecastByCoords(lat, lon)` usa `lat=&lon=` para busca por coordenadas (caso de geolocalização automática) — evita um round-trip extra de reverse geocoding.
 
 ---
 
