@@ -1,70 +1,53 @@
 /**
- * Tipos para dados de previsão do tempo (OpenWeather One Call API 3.0)
+ * Tipos para dados de previsão do tempo (OpenWeather Forecast API 2.5)
  */
 
-// Resposta bruta da One Call API 3.0 — item diário
-export interface OneCallDailyItem {
+// Resposta bruta da Forecast API 2.5 — item de 3 horas
+export interface OpenWeatherForecastItem {
   dt: number;
-  sunrise: number;
-  sunset: number;
-  moonrise: number;
-  moonset: number;
-  moon_phase: number;
-  summary?: string;
-  temp: {
-    day: number;
-    min: number;
-    max: number;
-    night: number;
-    eve: number;
-    morn: number;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    sea_level?: number;
+    grnd_level?: number;
+    humidity: number;
+    temp_kf?: number;
   };
-  feels_like: {
-    day: number;
-    night: number;
-    eve: number;
-    morn: number;
-  };
-  pressure: number;
-  humidity: number;
-  dew_point: number;
-  wind_speed: number;
-  wind_deg: number;
-  wind_gust?: number;
   weather: Array<{
     id: number;
     main: string;
     description: string;
     icon: string;
   }>;
-  clouds: number;
+  clouds: { all: number };
+  wind: { speed: number; deg: number; gust?: number };
+  visibility?: number;
   pop: number;
-  rain?: number;
-  snow?: number;
-  uvi: number;
+  sys: { pod: string };
+  dt_txt: string;
+  rain?: { '3h': number };
+  snow?: { '3h': number };
 }
 
-// Resposta bruta da One Call API 3.0
-export interface OneCallResponse {
-  lat: number;
-  lon: number;
-  timezone: string;
-  timezone_offset: number;
-  current?: Record<string, unknown>;
-  minutely?: unknown[];
-  hourly?: unknown[];
-  alerts?: unknown[];
-  daily: OneCallDailyItem[];
-}
-
-// Resposta bruta da Geocoding API (cidade → coordenadas)
-export interface GeocodingResult {
-  name: string;
-  lat: number;
-  lon: number;
-  country: string;
-  state?: string;
-  local_names?: Record<string, string>;
+// Resposta bruta completa da Forecast API 2.5
+export interface OpenWeatherForecastResponse {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: OpenWeatherForecastItem[];
+  city: {
+    id: number;
+    name: string;
+    coord: { lat: number; lon: number };
+    country: string;
+    population?: number;
+    timezone?: number;
+    sunrise?: number;
+    sunset?: number;
+  };
 }
 
 // Tipo normalizado para um dia de previsão (usado pelos componentes)

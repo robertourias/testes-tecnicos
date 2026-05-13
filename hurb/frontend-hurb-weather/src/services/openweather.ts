@@ -1,88 +1,82 @@
 /**
- * Serviço de integração com OpenWeather APIs
+ * Serviço de integração com OpenWeather Forecast API 2.5
  *
- * - One Call API 3.0: previsão diária por coordenadas
- * - Geocoding API: conversão de nome de cidade em lat/lon
+ * Busca previsão de 5 dias (intervalos de 3h) por nome de cidade ou coordenadas.
+ * Agrupa os itens por dia e seleciona o mais próximo do meio-dia de cada dia,
+ * retornando os primeiros 3 dias.
  *
- * Documentação One Call 3.0: https://openweathermap.org/api/one-call-3
- * Documentação Geocoding:    https://openweathermap.org/api/geocoding-api
+ * Documentação: https://openweathermap.org/forecast5
  */
-import type { OneCallResponse, GeocodingResult, WeatherDay } from '@/types/weather';
+import type { OpenWeatherForecastResponse, WeatherDay } from '@/types/weather';
 
-const ONE_CALL_URL = 'https://api.openweathermap.org/data/3.0/onecall';
-const GEO_URL = 'http://api.openweathermap.org/geo/1.0/direct';
-const API_KEY = process.env.OPENWEATHER_APPID ?? process.env.NEXT_PUBLIC_OPENWEATHER_APPID;
+const FORECAST_URL = 'https://api.openweathermap.org/data/2.5/forecast';
+const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_APPID;
 
-// Quantidade de dias de previsão retornados pela função pública
+// Quantidade de dias de previsão retornados
 const FORECAST_DAYS = 3;
 
-/**
- * Converte nome de cidade em coordenadas geográficas
- * usando a Geocoding API do OpenWeather
- *
- * @param cityName - Nome da cidade (ex: "Rio de Janeiro")
- * @returns Primeiro resultado de geocodificação encontrado
- * @throws Error se a cidade não for encontrada ou a chave for inválida
- */
-export async function geocodeCity(cityName: string): Promise<GeocodingResult> {
-  if (!API_KEY) {
-    throw new Error('Chave de API do OpenWeather não configurada');
-  }
+// Hora alvo para seleção do item representativo de cada dia (meio-dia)
+const TARGET_HOUR = 12;
 
-  if (!cityName.trim()) {
+/**
+ * Busca previsão do tempo por nome de cidade
+ *
+ * @param location - Nome da cidade (ex: "Rio de Janeiro", "Campinas,BR")
+ * @returns Array de WeatherDay normalizados para os primeiros 3 dias
+ * @throws Error se localidade vazia, chave inválida ou cidade não encontrada
+ */
+export async function getWeatherForecast(location: string): Promise<WeatherDay[]> {
+  if (!location.trim()) {
     throw new Error('Nome da localidade não pode ser vazio');
   }
 
-  const url = `${GEO_URL}?q=${encodeURIComponent(cityName.trim())}&limit=1&appid=${API_KEY}`;
-  const response = await fetch(url);
+  const params = new URLSearchParams({
+    q: location.trim(),
+    appid: API_KEY ?? '',
+    units: 'metric',
+    lang: 'pt_br',
+  });
+
+  const response = await fetch(`${FORECAST_URL}?${params.toString()}`);
 
   if (!response.ok) {
     if (response.status === 401) {
       throw new Error('Chave de API do OpenWeather inválida ou expirada');
     }
+    if (response.status === 404) {
+      throw new Error(`Localidade "${location}" não encontrada`);
+    }
     throw new Error(
-      `Falha ao geocodificar "${cityName}" (HTTP ${response.status})`
+      `Falha ao buscar previsão para "${location}" (HTTP ${response.status})`
     );
   }
 
-  const data: GeocodingResult[] = await response.json();
+  const data: OpenWeatherForecastResponse = await response.json();
 
-  if (data.length === 0) {
-    throw new Error(`Localidade "${cityName}" não encontrada`);
-  }
-
-  return data[0];
+  return extractThreeDayForecast(data);
 }
 
 /**
- * Busca previsão do tempo pelos próximos dias usando coordenadas geográficas
- * via One Call API 3.0 do OpenWeather
- *
- * Retorna os primeiros FORECAST_DAYS (3) dias do array `daily`
+ * Busca previsão do tempo por coordenadas geográficas
  *
  * @param lat - Latitude
  * @param lon - Longitude
- * @returns Array de WeatherDay normalizados
- * @throws Error em caso de falha na requisição
+ * @returns Array de WeatherDay normalizados para os primeiros 3 dias
+ * @throws Error se chave inválida ou falha na requisição
  */
 export async function getWeatherForecastByCoords(
   lat: number,
   lon: number
 ): Promise<WeatherDay[]> {
-  if (!API_KEY) {
-    throw new Error('Chave de API do OpenWeather não configurada');
-  }
-
   const params = new URLSearchParams({
     lat: String(lat),
     lon: String(lon),
-    appid: API_KEY,
+    appid: API_KEY ?? '',
     units: 'metric',
     lang: 'pt_br',
-    exclude: 'minutely,hourly,alerts',
   });
 
-  const response = await fetch(`${ONE_CALL_URL}?${params.toString()}`);
+  const response = await fetch(`${FORECAST_URL}?${params.toString()}`);
 
   if (!response.ok) {
     if (response.status === 401) {
@@ -93,58 +87,67 @@ export async function getWeatherForecastByCoords(
     );
   }
 
-  const data: OneCallResponse = await response.json();
+  const data: OpenWeatherForecastResponse = await response.json();
 
-  return parseDailyForecast(data.daily);
+  return extractThreeDayForecast(data);
 }
 
 /**
- * Busca previsão do tempo por nome de cidade
- * Orquestra: geocodeCity → getWeatherForecastByCoords
+ * Agrupa os itens de 3h por dia e seleciona o mais próximo do meio-dia.
+ * Usa componentes locais do timestamp para evitar shift de timezone.
  *
- * Interface pública de alto nível mantida para compatibilidade
- *
- * @param location - Nome da cidade (ex: "Rio de Janeiro")
- * @returns Array de WeatherDay normalizados
- * @throws Error em caso de falha em qualquer etapa
- */
-export async function getWeatherForecast(location: string): Promise<WeatherDay[]> {
-  const geoResult = await geocodeCity(location);
-  return getWeatherForecastByCoords(geoResult.lat, geoResult.lon);
-}
-
-/**
- * Converte array de OneCallDailyItem para WeatherDay normalizado
- * Usa componentes locais do timestamp para evitar shift de timezone
- *
- * @param daily - Array bruto de dias da One Call API
+ * @param data - Resposta bruta da Forecast API 2.5
  * @returns Array de WeatherDay (limitado a FORECAST_DAYS)
  */
-function parseDailyForecast(
-  daily: OneCallResponse['daily']
-): WeatherDay[] {
-  return daily.slice(0, FORECAST_DAYS).map(parseDailyItem);
+function extractThreeDayForecast(data: OpenWeatherForecastResponse): WeatherDay[] {
+  // Mapa: "YYYY-MM-DD" → item mais próximo do meio-dia
+  const dayMap = new Map<string, OpenWeatherForecastResponse['list'][number]>();
+
+  for (const item of data.list) {
+    const date = new Date(item.dt * 1000);
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    const dayKey = `${y}-${m}-${d}`;
+
+    const existing = dayMap.get(dayKey);
+
+    if (!existing) {
+      dayMap.set(dayKey, item);
+      continue;
+    }
+
+    // Compara qual item está mais próximo de TARGET_HOUR
+    const existingHour = new Date(existing.dt * 1000).getHours();
+    const currentHour = date.getHours();
+
+    if (
+      Math.abs(currentHour - TARGET_HOUR) < Math.abs(existingHour - TARGET_HOUR)
+    ) {
+      dayMap.set(dayKey, item);
+    }
+  }
+
+  return Array.from(dayMap.entries())
+    .slice(0, FORECAST_DAYS)
+    .map(([dayKey, item]) => parseForecastItem(dayKey, item));
 }
 
 /**
- * Converte um OneCallDailyItem em WeatherDay normalizado
+ * Converte um item bruto da Forecast API em WeatherDay normalizado
  *
- * @param item - Item diário da One Call API
- * @returns WeatherDay com data formatada e temperaturas arredondadas
+ * @param dayKey - Data no formato "YYYY-MM-DD"
+ * @param item   - Item bruto da lista de previsões
+ * @returns WeatherDay com data no formato "YYYY-MM-DD 12:00:00"
  */
-function parseDailyItem(item: OneCallResponse['daily'][number]): WeatherDay {
-  const date = new Date(item.dt * 1000);
-
-  // Usar componentes locais para evitar shift de timezone (compatível com formatWeatherDate)
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  const dateStr = `${y}-${m}-${d} 12:00:00`;
-
+function parseForecastItem(
+  dayKey: string,
+  item: OpenWeatherForecastResponse['list'][number]
+): WeatherDay {
   return {
-    date: dateStr,
-    temp: Math.round(item.temp.day),
-    feelsLike: Math.round(item.feels_like.day),
+    date: `${dayKey} 12:00:00`,
+    temp: Math.round(item.main.temp),
+    feelsLike: Math.round(item.main.feels_like),
     description: item.weather[0]?.description ?? 'Sem informações',
     icon: item.weather[0]?.icon ?? '01d',
   };

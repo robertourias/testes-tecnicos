@@ -1,25 +1,25 @@
 import { http, HttpResponse } from 'msw';
-import { mockWeatherResponse, mockGeocodingResponse } from './data/weather';
+import { mockWeatherResponse } from './data/weather';
 import { mockGeocodeResponse } from './data/geocode';
 import { mockBingResponse } from './data/bing';
 
 export const handlers: Array<ReturnType<typeof http.get | typeof http.post>> = [
-  // OpenWeather One Call API 3.0 — previsão por coordenadas
-  http.get('https://api.openweathermap.org/data/3.0/onecall', () => {
-    return HttpResponse.json(mockWeatherResponse);
-  }),
-
-  // OpenWeather Geocoding API — cidade → lat/lon
-  http.get('http://api.openweathermap.org/geo/1.0/direct', ({ request }) => {
+  // OpenWeather Forecast API 2.5 — previsão por nome de cidade ou coordenadas
+  http.get('https://api.openweathermap.org/data/2.5/forecast', ({ request }) => {
     const url = new URL(request.url);
     const query = url.searchParams.get('q') ?? '';
 
-    // Simula cidade inválida retornando array vazio
+    // Simula cidade inválida retornando 404
     if (query.toUpperCase() === 'INVALID') {
-      return HttpResponse.json([]);
+      return HttpResponse.json({ cod: '404', message: 'city not found' }, { status: 404 });
     }
 
-    return HttpResponse.json(mockGeocodingResponse);
+    // Simula chave de API inválida
+    if (url.searchParams.get('appid') === 'INVALID_KEY') {
+      return HttpResponse.json({ cod: 401, message: 'Invalid API key.' }, { status: 401 });
+    }
+
+    return HttpResponse.json(mockWeatherResponse);
   }),
 
   // OpenCage Geocoding API — lat/lon → nome da cidade (geocodificação reversa)
