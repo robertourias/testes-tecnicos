@@ -4,6 +4,8 @@ Microsite responsivo de previsão do tempo desenvolvido como desafio técnico pa
 
 A aplicação exibe a previsão para os próximos 3 dias (hoje, amanhã e depois de amanhã), com geolocalização automática, imagem de fundo do Bing e degradê dinâmico baseado na temperatura.
 
+![Preview](./preview.png)
+
 ---
 
 ## Funcionalidades

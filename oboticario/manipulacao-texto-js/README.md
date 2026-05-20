@@ -2,6 +2,8 @@
 
 Desafio técnico de JavaScript que implementa um interpretador de comandos para manipulação de texto, inspirado em comandos de modo normal do Vim.
 
+![Preview](./preview.png)
+
 ## Sobre o desafio
 
 A aplicação recebe um texto e uma sequência de comandos e aplica cada comando sobre o texto, mantendo uma posição de cursor. O resultado é exibido junto com a posição final do cursor.
