@@ -10,5 +10,5 @@ Cada subdiretório representa uma empresa e contém o(s) desafio(s) proposto(s).
 
 | Empresa | Desafio | README |
 |---------|---------|--------|
-| **HURB** | Microsite responsivo de previsão do tempo (Next.js + TypeScript + Docker) | [hurb/frontend-hurb-weather](./hurb/frontend-hurb-weather/README.md) |
-| **O Boticário** | Interpretador de comandos de manipulação de texto (Vanilla JS) | [oboticario/manipulacao-texto-js](./oboticario/manipulacao-texto-js/README.md) |
+| **HURB** | Microsite responsivo de previsão do tempo (Next.js + TypeScript + Docker) | [hurb--frontend-hurb-weather](./hurb--frontend-hurb-weather/README.md) |
+| **O Boticário** | Interpretador de comandos de manipulação de texto (Vanilla JS) | [oboticario--manipulacao-texto-js](./oboticario--manipulacao-texto-js/README.md) |
