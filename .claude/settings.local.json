@@ -3,7 +3,10 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npm run *)",
+      "Bash(git -C \"C:\\\\Users\\\\Rober\\\\projetos\\\\testes-tecnicos\" add README.md hurb--frontend-hurb-weather/src/types/index.ts .claude/settings.local.json)",
+      "Bash(git -C 'C:\\\\Users\\\\Rober\\\\projetos\\\\testes-tecnicos' commit -m ' *)"
     ]
   }
 }

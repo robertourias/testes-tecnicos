@@ -8,7 +8,7 @@ Cada subdiretório representa uma empresa e contém o(s) desafio(s) proposto(s).
 
 ## Empresas
 
-| Empresa | Desafio | README |
-|---------|---------|--------|
-| **HURB** | Microsite responsivo de previsão do tempo (Next.js + TypeScript + Docker) | [hurb--frontend-hurb-weather](./hurb--frontend-hurb-weather/README.md) |
-| **O Boticário** | Interpretador de comandos de manipulação de texto (Vanilla JS) | [oboticario--manipulacao-texto-js](./oboticario--manipulacao-texto-js/README.md) |
+| Empresa | Desafio | README | Preview |
+|---------|---------|--------|---------|
+| **HURB** | Microsite responsivo de previsão do tempo (Next.js + TypeScript + Docker) | [hurb--frontend-hurb-weather](./hurb--frontend-hurb-weather/README.md) | [Link](https://testes-tecnicos-hurb--frontend-hurb-weather.vercel.app/) |
+| **O Boticário** | Interpretador de comandos de manipulação de texto (Vanilla JS) | [oboticario--manipulacao-texto-js](./oboticario--manipulacao-texto-js/README.md) | [Link](https://testes-tecnicos-g8g6.vercel.app/) |
